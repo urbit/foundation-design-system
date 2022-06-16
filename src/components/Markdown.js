@@ -1,12 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import Markdoc, { Ast, Tag } from "@markdoc/markdoc";
-import { heading } from "./schema/Heading.markdoc";
-import { footnoteRef } from "../schema/footnoteRef.markdoc";
-import { footnoteItem } from "../schema/footnoteItem.markdoc";
-import { link } from "../schema/link.markdoc";
-import { image } from "../schema/image.markdoc";
-import { sup } from "../schema/superscript.markdoc";
+import { heading } from "../schema/heading.markdoc.js";
+import { footnoteRef } from "../schema/footnoteRef.markdoc.js";
+import { footnoteItem } from "../schema/footnoteItem.markdoc.js";
+import { link } from "../schema/link.markdoc.js";
+import { image } from "../schema/image.markdoc.js";
+import { sup } from "../schema/superscript.markdoc.js";
 import Tabs from "./markdown/Tabs";
 import Tab from "./markdown/Tab";
 import Button from "./markdown/Button";

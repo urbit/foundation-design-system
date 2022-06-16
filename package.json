@@ -9,8 +9,7 @@
     ]
   },
   "scripts": {
-    "prepare": "patch-package",
-    "install": "npm run build",
+    "prepare": "patch-package && npm run build",
     "build": "rm -rf dist && mkdir dist && babel src -d dist --copy-files"
   },
   "repository": {

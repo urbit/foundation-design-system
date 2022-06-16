@@ -3,11 +3,17 @@
   "version": "0.0.0",
   "description": "A system of design variables, Markdoc and React components intended for Urbit Foundation projects.",
   "main": "dist/index.js",
+  "type": "module",
   "babel": {
     "presets": [
       "@babel/preset-react"
     ]
   },
+  "files": [
+    "dist",
+    "styles",
+    "tailwind.config.js"
+  ],
   "scripts": {
     "prepare": "patch-package && npm run build",
     "build": "rm -rf dist && mkdir dist && babel src -d dist --copy-files"

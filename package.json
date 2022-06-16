@@ -10,8 +10,7 @@
   },
   "scripts": {
     "prepare": "patch-package",
-    "postinstall": "rm -rf dist && mkdir dist && babel src -d dist --copy-files",
-    "build": "rm -rf dist && mkdir dist && babel src -d dist --copy-files"
+    "build": "npm i && rm -rf dist && mkdir dist && babel src -d dist --copy-files"
   },
   "repository": {
     "type": "git",

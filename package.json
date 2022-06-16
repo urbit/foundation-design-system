@@ -11,7 +11,7 @@
   "scripts": {
     "prepare": "patch-package",
     "install": "npm run build",
-    "build": "npm i && rm -rf dist && mkdir dist && babel src -d dist --copy-files"
+    "build": "rm -rf dist && mkdir dist && babel src -d dist --copy-files"
   },
   "repository": {
     "type": "git",

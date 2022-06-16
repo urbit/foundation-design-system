@@ -37,7 +37,13 @@ We use [Markdoc](https://markdoc.io) to allow for embedding dynamic React compon
 
 Our Markdown parser is a custom patched installation of Markdoc for additional features (basic footnote support, superscript, next/link injection, inline HTML injection).
 
-On the server-side parse your content by passing it an object in the following shape:
+Import the component:
+
+```js
+import Markdown from 'foundation-design-system'; 
+```
+
+Then, on the server-side parse your content by passing it an object in the following shape:
 
 ```js
 { post: { content: "## A markdown document"}}
@@ -55,10 +61,10 @@ Otherwise this works fine if you're just using `getPostBySlug` a la urbit.org:
   const markdown = JSON.stringify(Markdown.parse(post));
 ```
 
-Then on front-end pass it to the renderer:
+And on front-end pass it to the renderer:
 
 ```jsx
-    <div className="markdown technical">
+    <div className="markdown">
         <Markdown.render content={JSON.parse(markdown)} />
     </div>
 ```

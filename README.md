@@ -20,7 +20,7 @@ npm i @tailwindcss/aspect-ratio autoprefixer postcss tailwindcss next
 Our design variables are available by using the Tailwind config in your own installation as a preset:
 
 ```js
-    presets: [require("foundation-design-system/tailwind.config")]
+presets: [require("foundation-design-system/tailwind.config")]
 ```
 
 Likewise you can find our CSS styles by importing them at the top of your site build (i.e. `_app.js`):
@@ -52,21 +52,21 @@ Then, on the server-side parse your content by passing it an object in the follo
 If you've extracted the `content` directly with `gray-matter` reconstruct the object:
 
 ```js
-  const markdown = JSON.stringify(Markdown.parse({ post: { content } }));
+const markdown = JSON.stringify(Markdown.parse({ post: { content } }));
 ```
 
 Otherwise this works fine if you're just using `getPostBySlug` a la urbit.org:
 
 ```js
-  const markdown = JSON.stringify(Markdown.parse(post));
+const markdown = JSON.stringify(Markdown.parse(post));
 ```
 
 And on front-end pass it to the renderer:
 
 ```jsx
-    <div className="markdown">
-        <Markdown.render content={JSON.parse(markdown)} />
-    </div>
+<div className="markdown">
+    <Markdown.render content={JSON.parse(markdown)} />
+</div>
 ```
 
 *Why are we doing JSON stringification and parsing?* you ask. The wind answers, and you feel the breeze on the back of your neck.

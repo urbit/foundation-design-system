@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "description": "A system of design variables, Markdoc and React components intended for Urbit Foundation projects.",
   "main": "dist/index.js",
-  "type": "module",
   "files": [
     "dist",
     "styles",

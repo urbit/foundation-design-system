@@ -12,8 +12,6 @@ require("core-js/modules/web.dom-collections.iterator.js");
 
 require("core-js/modules/es.regexp.exec.js");
 
-require("core-js/modules/es.regexp.test.js");
-
 require("core-js/modules/es.string.replace.js");
 
 require("core-js/modules/es.string.split.js");

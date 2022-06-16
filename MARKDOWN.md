@@ -92,7 +92,7 @@ Let users choose from a few sections when necessary.
 
 ![](https://media.urbit.org/foundation/design/tabs.png)
 
-```
+````
 {% tabs %}
 
 {% tab label="MacOS" %}
@@ -120,4 +120,4 @@ To install **Port** on Windows, simply download and open the `.exe` file.
 {% /tab %}
 
 {% /tabs %}
-```
+````

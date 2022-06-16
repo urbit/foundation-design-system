@@ -22,7 +22,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 function checkIfExternal(attributes) {
   const href = attributes.href;
 
-  if (href.includes(window.location.hostname) || href.startsWith("/") || href.startsWith("#") || href.startsWith("?")) {
+  if (href.includes("urbit.org") || href.startsWith("/") || href.startsWith("#") || href.startsWith("?")) {
     return "_self";
   } else {
     return "_blank";

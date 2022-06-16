@@ -3,7 +3,7 @@ import { Tag } from "@markdoc/markdoc";
 function checkIfExternal(attributes) {
   const href = attributes.href;
   if (
-    href.includes(window.location.hostname) ||
+    href.includes("urbit.org") ||
     href.startsWith("/") ||
     href.startsWith("#") ||
     href.startsWith("?")

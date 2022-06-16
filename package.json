@@ -1,0 +1,36 @@
+{
+  "name": "foundation-design-system",
+  "version": "0.0.0",
+  "description": "A system of design variables, Markdoc and React components intended for Urbit Foundation projects.",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "patch-package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/urbit/foundation-design-system.git"
+  },
+  "author": "Urbit Foundation",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/urbit/foundation-design-system/issues"
+  },
+  "homepage": "https://github.com/urbit/foundation-design-system#readme",
+  "peerDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "autoprefixer": "^10.4.7",
+    "next": "^12.1.6",
+    "postcss": "^8.4.14",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "tailwindcss": "^3.1.3"
+  },
+  "dependencies": {
+    "@markdoc/markdoc": "^0.1.2",
+    "html-react-parser": "^1.4.14",
+    "markdoc": "^0.1.3",
+    "patch-package": "^6.4.7",
+    "prism-react-renderer": "^1.3.3",
+    "prismjs": "^1.28.0"
+  }
+}

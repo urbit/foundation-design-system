@@ -1,4 +1,5 @@
 module.exports = {
+  content: ["./node_modules/foundation-design-system/**/*.js"],
   theme: {
     colors: {
       // Wall

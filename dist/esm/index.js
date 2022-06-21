@@ -102,7 +102,7 @@ function Footer({
   return /*#__PURE__*/React$2.createElement("footer", {
     className: "bg-wall-100 mt-20 w-full flex justify-center"
   }, /*#__PURE__*/React$2.createElement(SingleColumn, null, /*#__PURE__*/React$2.createElement(Section, {
-    short: true
+    className: "pt-20"
   }, /*#__PURE__*/React$2.createElement("p", {
     className: "font-semibold text-2xl"
   }, "~"), /*#__PURE__*/React$2.createElement("p", {
@@ -113,7 +113,7 @@ function Footer({
     return /*#__PURE__*/React$2.createElement("div", {
       key: section.title,
       className: "w-1/2 md:w-1/3 flex flex-col shrink"
-    }, /*#__PURE__*/React$2.createElement("h4", {
+    }, section.title && /*#__PURE__*/React$2.createElement("h4", {
       className: "mt-16 mb-8"
     }, section.title), section.links.map(link => {
       return /*#__PURE__*/React$2.createElement(Link, {

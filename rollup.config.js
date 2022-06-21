@@ -1,7 +1,6 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
-import peerDepsExternal from "rollup-plugin-peer-deps-external";
 
 const packageJson = require("./package.json");
 
@@ -21,10 +20,10 @@ export default [
       },
     ],
     plugins: [
-      peerDepsExternal({ includeDependencies: true }),
       resolve(),
       babel({ presets: ["@babel/preset-react"] }),
       commonjs(),
     ],
+    external: ["react", "react-dom"],
   },
 ];

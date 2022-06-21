@@ -19,6 +19,7 @@ export default [
         sourcemap: true,
       },
     ],
+    external: ["next/link", "next/router", "react", "react-dom"],
     plugins: [
       resolve(),
       babel({
@@ -26,6 +27,5 @@ export default [
       }),
       commonjs(),
     ],
-    external: ["next", "react", "react-dom"],
   },
 ];

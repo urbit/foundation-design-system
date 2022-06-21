@@ -24,6 +24,6 @@ export default [
       babel({ presets: ["@babel/preset-react"] }),
       commonjs(),
     ],
-    external: ["react", "react-dom"],
+    external: ["react", "react-dom", "next/link"],
   },
 ];

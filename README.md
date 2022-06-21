@@ -20,7 +20,7 @@ npm i @tailwindcss/aspect-ratio autoprefixer postcss tailwindcss next
 Our design variables are available by using the Tailwind config in your own installation as a preset, ensuring you style our components as well in the `content` section:
 
 ```js
-presets: [require("foundation-design-system/tailwind.config")],
+presets: [require("foundation-design-system/tailwind")],
 content: [
   "./node_modules/foundation-design-system/**/*.js",
   "./pages/**/*.{js,ts,jsx,tsx}",
@@ -45,7 +45,7 @@ Our Markdown parser is a custom patched installation of Markdoc for additional f
 Import the component:
 
 ```js
-import Markdown from 'foundation-design-system'; 
+import Markdown from 'foundation-design-system/markdown'; 
 ```
 
 Then, on the server-side parse your content by passing it an object in the following shape:

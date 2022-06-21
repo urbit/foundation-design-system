@@ -105,24 +105,18 @@ function Section({
 }
 
 function Footer({
-  title,
   data = [[{}], [{}]]
 }) {
   return /*#__PURE__*/React__default["default"].createElement("footer", {
     className: "bg-wall-100 mt-20 w-full flex justify-center"
   }, /*#__PURE__*/React__default["default"].createElement(SingleColumn, null, /*#__PURE__*/React__default["default"].createElement(Section, {
-    className: "pt-20"
-  }, /*#__PURE__*/React__default["default"].createElement("p", {
-    className: "font-semibold text-2xl"
-  }, "~"), /*#__PURE__*/React__default["default"].createElement("p", {
-    className: "font-semibold"
-  }, title), /*#__PURE__*/React__default["default"].createElement("div", {
+    short: true,
     className: "flex flex-row flex-wrap"
   }, data?.[0]?.map(section => {
     return /*#__PURE__*/React__default["default"].createElement("div", {
       key: section.title,
       className: "w-1/2 md:w-1/3 flex flex-col shrink"
-    }, section.title && /*#__PURE__*/React__default["default"].createElement("h4", {
+    }, /*#__PURE__*/React__default["default"].createElement("h4", {
       className: "mt-16 mb-8"
     }, section.title), section.links.map(link => {
       return /*#__PURE__*/React__default["default"].createElement(Link__default["default"], {
@@ -133,7 +127,7 @@ function Footer({
         className: "type-medium text-wall-500"
       }, link.title));
     }));
-  }))), /*#__PURE__*/React__default["default"].createElement(Section, {
+  })), /*#__PURE__*/React__default["default"].createElement(Section, {
     className: "flex flex-col md:flex-row"
   }, data?.[1]?.map(link => {
     return /*#__PURE__*/React__default["default"].createElement("div", {

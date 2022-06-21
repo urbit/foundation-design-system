@@ -3,15 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var _exportNames = {
-  Markdown: true
-};
-Object.defineProperty(exports, "Markdown", {
-  enumerable: true,
-  get: function get() {
-    return _Markdown.default;
-  }
-});
+var _exportNames = {};
+exports.default = void 0;
 
 var _Markdown = _interopRequireDefault(require("./components/Markdown"));
 
@@ -30,3 +23,6 @@ Object.keys(_layout).forEach(function (key) {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _Markdown.default;
+exports.default = _default;

@@ -6,7 +6,7 @@
     ".": "./dist/index.js",
     "./tailwind": "./tailwind.config.js",
     "./styles/*": "./styles/*.css",
-    "./layout": "./dist/components/layout",
+    "./layout": "./dist/components/layout/index.js",
     "./markdown": "./dist/components/Markdown.js"
   },
   "files": [

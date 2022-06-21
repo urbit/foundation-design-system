@@ -27,7 +27,7 @@ export default function IntraNav({ search, ourSite = "" }) {
     <div className="bg-wall-100 w-full">
       <div className="layout max-w-screen-lg hidden md:block px-8 mx-auto">
         <div className="flex justify-between items-center py-2">
-          <div className="flex space-x-4 font-medium">
+          <div className="flex space-x-4">
             {sites.map((site) => (
               <a
                 className={classNames("text-xs", {

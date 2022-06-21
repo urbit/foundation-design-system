@@ -180,7 +180,7 @@ function IntraNav({
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "flex justify-between items-center py-2"
   }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "flex space-x-4 font-medium"
+    className: "flex space-x-4"
   }, sites.map(site => /*#__PURE__*/React__default["default"].createElement("a", {
     className: classNames("text-xs", {
       "font-bold": ourSite.includes(site.href)

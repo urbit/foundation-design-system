@@ -1,4 +1,4 @@
-export { Container } from "./Container";
-export { Footer } from "./Footer";
-export { Section } from "./Section";
-export { SingleColumn } from "./SingleColumn";
+export { default as Container } from "./Container";
+export { default as Footer } from "./Footer";
+export { default as Section } from "./Section";
+export { default as SingleColumn } from "./SingleColumn";

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Container = Container;
+exports.default = Container;
 
 var _react = _interopRequireDefault(require("react"));
 

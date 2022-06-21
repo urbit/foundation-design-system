@@ -1,5 +1,4 @@
 import Markdown from "./components/Markdown";
 
 export default Markdown;
-
-export * from "./components/layout";
+export { Container, Footer, Section, SingleColumn } from "./components/layout";

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Footer = Footer;
+exports.default = Footer;
 
 var _link = _interopRequireDefault(require("next/link"));
 

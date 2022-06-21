@@ -6,32 +6,34 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "Container", {
   enumerable: true,
   get: function get() {
-    return _Container.Container;
+    return _Container.default;
   }
 });
 Object.defineProperty(exports, "Footer", {
   enumerable: true,
   get: function get() {
-    return _Footer.Footer;
+    return _Footer.default;
   }
 });
 Object.defineProperty(exports, "Section", {
   enumerable: true,
   get: function get() {
-    return _Section.Section;
+    return _Section.default;
   }
 });
 Object.defineProperty(exports, "SingleColumn", {
   enumerable: true,
   get: function get() {
-    return _SingleColumn.SingleColumn;
+    return _SingleColumn.default;
   }
 });
 
-var _Container = require("./Container");
+var _Container = _interopRequireDefault(require("./Container"));
 
-var _Footer = require("./Footer");
+var _Footer = _interopRequireDefault(require("./Footer"));
 
-var _Section = require("./Section");
+var _Section = _interopRequireDefault(require("./Section"));
 
-var _SingleColumn = require("./SingleColumn");
+var _SingleColumn = _interopRequireDefault(require("./SingleColumn"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

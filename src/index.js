@@ -1,3 +1,2 @@
-import Markdown from "./components/Markdown";
-
-export default Markdown;
+export { default as Markdown } from "./components/Markdown";
+export * from "./components/layout";

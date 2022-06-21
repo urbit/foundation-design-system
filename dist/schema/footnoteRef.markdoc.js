@@ -7,7 +7,7 @@ exports.footnoteRef = void 0;
 
 var _markdoc = require("@markdoc/markdoc");
 
-const footnoteRef = {
+var footnoteRef = {
   attributes: {
     id: {
       type: String,
@@ -25,14 +25,12 @@ const footnoteRef = {
       required: true
     }
   },
-
-  transform(node, config) {
-    const attributes = node.transformAttributes(config);
-    const link = new _markdoc.Tag("a", attributes, ["".concat(node.attributes.label)]);
+  transform: function transform(node, config) {
+    var attributes = node.transformAttributes(config);
+    var link = new _markdoc.Tag("a", attributes, ["".concat(node.attributes.label)]);
     return new _markdoc.Tag("sup", {
-      class: "footnote-ref"
+      "class": "footnote-ref"
     }, [link]);
   }
-
 };
 exports.footnoteRef = footnoteRef;

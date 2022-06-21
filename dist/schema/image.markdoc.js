@@ -7,7 +7,7 @@ exports.image = void 0;
 
 var _markdoc = require("@markdoc/markdoc");
 
-const image = {
+var image = {
   render: "span",
   attributes: {
     src: {
@@ -21,15 +21,13 @@ const image = {
       type: String
     }
   },
-
-  transform(node, config) {
-    const attributes = node.transformAttributes(config);
-    const children = node.transformChildren(config);
-    const imageTag = new _markdoc.Tag("img", attributes, children);
+  transform: function transform(node, config) {
+    var attributes = node.transformAttributes(config);
+    var children = node.transformChildren(config);
+    var imageTag = new _markdoc.Tag("img", attributes, children);
     return new _markdoc.Tag("span", {
       id: "figure"
     }, [imageTag]);
   }
-
 };
 exports.image = image;

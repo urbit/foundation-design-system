@@ -1,38 +1,45 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.TabContext = void 0;
+exports["default"] = exports.TabContext = void 0;
 
-require("core-js/modules/web.dom-collections.iterator.js");
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _react = _interopRequireDefault(require("react"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var __jsx = _react["default"].createElement;
 
-const TabContext = /*#__PURE__*/_react.default.createContext();
+var TabContext = /*#__PURE__*/_react["default"].createContext();
 
 exports.TabContext = TabContext;
 
-const Tabs = _ref => {
-  let {
-    labels,
-    children
-  } = _ref;
+var Tabs = function Tabs(_ref) {
+  var labels = _ref.labels,
+      children = _ref.children;
 
-  const [currentTab, setCurrentTab] = _react.default.useState(labels[0]);
+  var _React$useState = _react["default"].useState(labels[0]),
+      _React$useState2 = (0, _slicedToArray2["default"])(_React$useState, 2),
+      currentTab = _React$useState2[0],
+      setCurrentTab = _React$useState2[1];
 
-  return /*#__PURE__*/_react.default.createElement(TabContext.Provider, {
+  return /*#__PURE__*/_react["default"].createElement(TabContext.Provider, {
     value: currentTab
-  }, /*#__PURE__*/_react.default.createElement("ul", {
+  }, /*#__PURE__*/_react["default"].createElement("ul", {
     className: "flex items-center display cursor-pointer space-x-4"
-  }, labels.map(label => /*#__PURE__*/_react.default.createElement("li", {
-    className: "block bg-wall-100 tab rounded-xl " + (currentTab === label ? "font-semibold" : ""),
-    key: label,
-    onClick: () => setCurrentTab(label)
-  }, label))), children);
+  }, labels.map(function (label) {
+    return /*#__PURE__*/_react["default"].createElement("li", {
+      className: "block bg-wall-100 tab rounded-xl " + (currentTab === label ? "font-semibold" : ""),
+      key: label,
+      onClick: function onClick() {
+        return setCurrentTab(label);
+      }
+    }, label);
+  })), children);
 };
 
 var _default = Tabs;
-exports.default = _default;
+exports["default"] = _default;

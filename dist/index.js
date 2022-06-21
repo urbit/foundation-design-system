@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -27,13 +29,11 @@ Object.defineProperty(exports, "SingleColumn", {
     return _layout.SingleColumn;
   }
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _Markdown = _interopRequireDefault(require("./components/Markdown"));
 
 var _layout = require("./components/layout");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _Markdown.default;
-exports.default = _default;
+var _default = _Markdown["default"];
+exports["default"] = _default;

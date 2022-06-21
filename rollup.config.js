@@ -21,9 +21,11 @@ export default [
     ],
     plugins: [
       resolve(),
-      babel({ presets: ["@babel/preset-react"] }),
+      babel({
+        presets: ["@babel/preset-react"],
+      }),
       commonjs(),
     ],
-    external: ["react", "react-dom", "next/link"],
+    external: ["next", "react", "react-dom"],
   },
 ];

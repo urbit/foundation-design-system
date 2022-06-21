@@ -19,11 +19,13 @@ export default [
         sourcemap: true,
       },
     ],
+    external: ["next/link", "next/router", "react", "react-dom"],
     plugins: [
       resolve(),
-      babel({ presets: ["@babel/preset-react"] }),
+      babel({
+        presets: ["@babel/preset-react"],
+      }),
       commonjs(),
     ],
-    external: ["react", "react-dom"],
   },
 ];

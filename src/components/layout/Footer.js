@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SingleColumn from "./SingleColumn";
 import Section from "./Section";
+import React from "react";
 
 export default function Footer({ data }) {
   return (

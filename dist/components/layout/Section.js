@@ -7,6 +7,8 @@ exports.default = Section;
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
+var _react = _interopRequireDefault(require("react"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Section(_ref) {
@@ -22,7 +24,7 @@ function Section(_ref) {
     "layout-narrow": narrow,
     layout: !narrow
   });
-  return /*#__PURE__*/React.createElement("section", {
+  return /*#__PURE__*/_react.default.createElement("section", {
     className: "w-full px-4 md:px-8 ".concat(spacing, " ").concat(className)
   }, children);
 }

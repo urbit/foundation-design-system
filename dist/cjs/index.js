@@ -143,7 +143,8 @@ function Footer({
 }
 
 function IntraNav({
-  search
+  search,
+  ourSite = ""
 }) {
   const [shortcut, setShortcut] = React$2.useState("");
 
@@ -182,7 +183,7 @@ function IntraNav({
     className: "flex space-x-4 font-medium"
   }, sites.map(site => /*#__PURE__*/React__default["default"].createElement("a", {
     className: classNames("text-xs", {
-      "font-bold": process.env.siteUrl.includes(site.href)
+      "font-bold": ourSite.includes(site.href)
     }),
     href: site.href
   }, site.title))), /*#__PURE__*/React__default["default"].createElement("button", {

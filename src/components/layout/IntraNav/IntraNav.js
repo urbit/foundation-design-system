@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 
-export default function IntraNav({ search }) {
+export default function IntraNav({ search, ourSite = "" }) {
   const [shortcut, setShortcut] = useState("");
   const detectOS = () => {
     const agent = window.navigator.appVersion;
@@ -31,7 +31,7 @@ export default function IntraNav({ search }) {
             {sites.map((site) => (
               <a
                 className={classNames("text-xs", {
-                  "font-bold": process.env.siteUrl.includes(site.href),
+                  "font-bold": ourSite.includes(site.href),
                 })}
                 href={site.href}
               >

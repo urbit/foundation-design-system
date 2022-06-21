@@ -25,25 +25,25 @@ a {
 
 /* Links in p tags should be green */
 p a {
-  @apply text-green-400 font-semibold;
+  @apply text-green-400 font-medium;
 }
 
 /* Reduce b and strong tag weight default */
 b,
 strong {
-  @apply font-semibold;
+  @apply font-medium;
 }
 
 /* Typography */
 
 h1,
 .type-h1 {
-  @apply text-4xl lg:text-5xl font-extrabold leading-tight text-wall-600;
+  @apply text-4xl lg:text-5xl font-bold leading-tight text-wall-600;
 }
 
 h2,
 .type-h2 {
-  @apply text-3xl lg:text-4xl font-bold leading-tight;
+  @apply text-3xl lg:text-4xl font-semibold leading-tight;
 }
 
 h3,
@@ -62,7 +62,7 @@ h4 {
 h5,
 .type-h5,
 .type-bold {
-  @apply text-base font-semibold leading-relaxed;
+  @apply text-base font-medium leading-relaxed;
 }
 
 p,

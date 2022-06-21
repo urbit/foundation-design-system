@@ -51,9 +51,12 @@ h3,
   @apply text-xl font-semibold;
 }
 
-h4,
-.type-ui {
+h4 {
   @apply text-lg font-medium;
+}
+
+.type-ui {
+  @apply text-lg font-normal;
 }
 
 h5,

@@ -17,10 +17,15 @@ npm i @tailwindcss/aspect-ratio autoprefixer postcss tailwindcss next
 
 ### Tailwind config and other CSS styles
 
-Our design variables are available by using the Tailwind config in your own installation as a preset:
+Our design variables are available by using the Tailwind config in your own installation as a preset, ensuring you style our components as well in the `content` section:
 
 ```js
 presets: [require("foundation-design-system/tailwind.config")]
+  content: [
+    "./node_modules/foundation-design-system/**/*.js",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
 ```
 
 Likewise you can find our CSS styles by importing them at the top of your site build (i.e. `_app.js`):

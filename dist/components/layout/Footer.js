@@ -18,13 +18,16 @@ var _react = _interopRequireDefault(require("react"));
 var __jsx = _react["default"].createElement;
 
 function Footer(_ref) {
-  var data = _ref.data;
+  var _data$, _data$2;
+
+  var _ref$data = _ref.data,
+      data = _ref$data === void 0 ? [[], []] : _ref$data;
   return /*#__PURE__*/_react["default"].createElement("footer", {
     className: "bg-wall-100 mt-20 w-full flex justify-center"
   }, /*#__PURE__*/_react["default"].createElement(_SingleColumn["default"], null, /*#__PURE__*/_react["default"].createElement(_Section["default"], {
     "short": true,
     className: "flex flex-row flex-wrap"
-  }, data[0].map(function (section) {
+  }, data === null || data === void 0 ? void 0 : (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$.map(function (section) {
     return /*#__PURE__*/_react["default"].createElement("div", {
       className: "w-1/2 md:w-1/3 flex flex-col shrink"
     }, /*#__PURE__*/_react["default"].createElement("h4", {
@@ -39,7 +42,7 @@ function Footer(_ref) {
     }));
   })), /*#__PURE__*/_react["default"].createElement(_Section["default"], {
     className: "flex flex-col md:flex-row"
-  }, data[1].map(function (link) {
+  }, data === null || data === void 0 ? void 0 : (_data$2 = data[1]) === null || _data$2 === void 0 ? void 0 : _data$2.map(function (link) {
     return /*#__PURE__*/_react["default"].createElement("div", {
       className: "md:w-1/3"
     }, /*#__PURE__*/_react["default"].createElement(_link["default"], {

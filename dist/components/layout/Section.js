@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Section;
+exports.Section = Section;
 
 var _classnames = _interopRequireDefault(require("classnames"));
 

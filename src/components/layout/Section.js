@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import React from "react";
 
-export default function Section({
+export function Section({
   children,
   className = "",
   short = false,

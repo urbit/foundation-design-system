@@ -3,7 +3,7 @@ import SingleColumn from "./SingleColumn";
 import Section from "./Section";
 import React from "react";
 
-export default function Footer({ data }) {
+export function Footer({ data }) {
   return (
     <footer className="bg-wall-100 mt-20 w-full flex justify-center">
       <SingleColumn>

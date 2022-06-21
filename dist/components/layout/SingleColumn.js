@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = SingleColumn;
+exports.SingleColumn = SingleColumn;
 
 var _react = _interopRequireDefault(require("react"));
 

@@ -5,35 +5,41 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+Object.defineProperty(exports, "Markdown", {
+  enumerable: true,
+  get: function get() {
+    return _Markdown["default"];
+  }
+});
 Object.defineProperty(exports, "Container", {
   enumerable: true,
   get: function get() {
-    return _layout.Container;
-  }
-});
-Object.defineProperty(exports, "Footer", {
-  enumerable: true,
-  get: function get() {
-    return _layout.Footer;
-  }
-});
-Object.defineProperty(exports, "Section", {
-  enumerable: true,
-  get: function get() {
-    return _layout.Section;
+    return _Container["default"];
   }
 });
 Object.defineProperty(exports, "SingleColumn", {
   enumerable: true,
   get: function get() {
-    return _layout.SingleColumn;
+    return _Container["default"];
   }
 });
-exports["default"] = void 0;
+Object.defineProperty(exports, "Footer", {
+  enumerable: true,
+  get: function get() {
+    return _Footer["default"];
+  }
+});
+Object.defineProperty(exports, "Section", {
+  enumerable: true,
+  get: function get() {
+    return _Section["default"];
+  }
+});
 
 var _Markdown = _interopRequireDefault(require("./components/Markdown"));
 
-var _layout = require("./components/layout");
+var _Container = _interopRequireDefault(require("./components/layout/Container"));
 
-var _default = _Markdown["default"];
-exports["default"] = _default;
+var _Footer = _interopRequireDefault(require("./components/layout/Footer"));
+
+var _Section = _interopRequireDefault(require("./components/layout/Section"));

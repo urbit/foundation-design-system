@@ -1,4 +1,4 @@
-import { Config, Node, Tag } from "@markdoc/markdoc";
+import { Tag } from "@markdoc/markdoc";
 
 export const footnoteRef = {
   attributes: {

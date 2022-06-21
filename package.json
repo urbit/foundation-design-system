@@ -2,13 +2,8 @@
   "name": "foundation-design-system",
   "version": "0.0.0",
   "description": "A system of design variables, Markdoc and React components intended for Urbit Foundation projects.",
-  "exports": {
-    ".": "./dist/index.js",
-    "./tailwind": "./tailwind.config.js",
-    "./styles/*": "./styles/*.css",
-    "./layout": "./dist/components/layout/index.js",
-    "./markdown": "./dist/components/Markdown.js"
-  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "files": [
     "dist",
     "styles",
@@ -16,7 +11,8 @@
   ],
   "scripts": {
     "prepare": "patch-package && npm run build",
-    "build": "rm -rf dist && mkdir dist && babel src -d dist --copy-files"
+    "rollup": "rollup -c",
+    "build": "npm run rollup"
   },
   "repository": {
     "type": "git",
@@ -34,24 +30,24 @@
     "classnames": "^2.3.1",
     "next": "^12.1.6",
     "postcss": "^8.4.14",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "tailwindcss": "^3.1.3"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
-    "@markdoc/markdoc": "^0.1.2",
+    "@markdoc/markdoc": "0.1.2",
     "core-js": "^3.23.1",
     "html-react-parser": "^1.4.14",
-    "markdoc": "^0.1.3",
     "patch-package": "^6.4.7",
     "prism-react-renderer": "^1.3.3",
-    "prismjs": "^1.28.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "prismjs": "^1.28.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.10",
-    "@babel/core": "^7.18.5",
-    "@babel/preset-env": "^7.18.2",
-    "@babel/preset-react": "^7.17.12"
+    "@babel/preset-react": "^7.17.12",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "rollup": "^2.75.7",
+    "rollup-plugin-peer-deps-external": "^2.2.4"
   }
 }

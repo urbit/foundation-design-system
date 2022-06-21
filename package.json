@@ -2,7 +2,13 @@
   "name": "foundation-design-system",
   "version": "0.0.0",
   "description": "A system of design variables, Markdoc and React components intended for Urbit Foundation projects.",
-  "exports": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./tailwind": "./tailwind.config.js",
+    "./styles/*": "./styles/*.css",
+    "./layout": "./dist/components/layout",
+    "./markdown": "./dist/components/Markdown.js"
+  },
   "files": [
     "dist",
     "styles",

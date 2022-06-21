@@ -28,7 +28,7 @@ function SingleColumn({
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-var classnames$1 = {exports: {}};
+var classnames = {exports: {}};
 
 /*!
   Copyright (c) 2018 Jed Watson.
@@ -83,9 +83,9 @@ var classnames$1 = {exports: {}};
 	    window.classNames = classNames;
 	  }
 	})();
-} (classnames$1));
+} (classnames));
 
-var classnames = classnames$1.exports;
+var classNames = classnames.exports;
 
 function Section({
   children,
@@ -93,7 +93,7 @@ function Section({
   short = false,
   narrow = false
 }) {
-  const spacing = classnames({
+  const spacing = classNames({
     "py-8": short,
     "py-20": !short,
     "layout-narrow": narrow,
@@ -140,6 +140,60 @@ function Footer({
       className: "type-medium text-wall-500"
     }, link.title)));
   }))));
+}
+
+function IntraNav({
+  search
+}) {
+  const [shortcut, setShortcut] = React$2.useState("");
+
+  const detectOS = () => {
+    const agent = window.navigator.appVersion;
+
+    if (agent.includes("Win")) {
+      return "Ctrl+K";
+    } else if (agent.includes("Mac")) {
+      return "⌘K";
+    } else if (agent.includes("Linux")) {
+      return "Ctrl+K";
+    }
+  };
+
+  React$2.useEffect(() => {
+    setShortcut(detectOS());
+  }, []);
+  const sites = [{
+    title: "Urbit.org",
+    href: "https://urbit.org"
+  }, {
+    title: "Operators",
+    href: "https://operators.urbit.org"
+  }, {
+    title: "Developers",
+    href: "https://developers.urbit.org"
+  }];
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "bg-wall-100 w-full"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "layout max-w-screen-lg hidden md:block px-8 mx-auto"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "flex justify-between items-center py-2"
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "flex space-x-4 font-medium"
+  }, sites.map(site => /*#__PURE__*/React__default["default"].createElement("a", {
+    className: classNames("text-xs", {
+      "font-bold": process.env.siteUrl.includes(site.href)
+    }),
+    href: site.href
+  }, site.title))), /*#__PURE__*/React__default["default"].createElement("button", {
+    onClick: e => {
+      e.stopPropagation();
+      search.toggleSearch(e);
+    },
+    className: "bg-white text-wall-500 flex px-3 py-2 rounded-lg text-xs font-medium"
+  }, /*#__PURE__*/React__default["default"].createElement("div", null, "Search"), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "ml-2 text-wall-400"
+  }, shortcut)))));
 }
 
 function _extends$1() {
@@ -21648,6 +21702,7 @@ const Markdown = {
 
 exports.Container = Container;
 exports.Footer = Footer;
+exports.IntraNav = IntraNav;
 exports.Markdown = Markdown;
 exports.Section = Section;
 exports.SingleColumn = SingleColumn;

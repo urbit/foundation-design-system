@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import classNames from "classnames";
 
 export default function IntraNav({ search }) {
   const [shortcut, setShortcut] = useState("");

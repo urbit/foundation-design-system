@@ -211,6 +211,19 @@ function IntraNav({
   }, shortcut)))));
 }
 
+function TwoUp({
+  children,
+  className = ""
+}) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: `flex flex-wrap w-full ${className}`
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "w-full md:w-1/2 pr-0 pb-8 md:pr-4"
+  }, children[0] || null), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "w-full md:w-1/2 pl-0 pb-8 md:pl-4"
+  }, children[1] || null));
+}
+
 function _extends$1() {
   _extends$1 = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -21722,4 +21735,5 @@ exports.IntraNav = IntraNav;
 exports.Markdown = Markdown;
 exports.Section = Section;
 exports.SingleColumn = SingleColumn;
+exports.TwoUp = TwoUp;
 //# sourceMappingURL=index.js.map

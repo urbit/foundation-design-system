@@ -13,7 +13,7 @@ export default function Footer({ title = "", data = [[{}], [{}]] }) {
               <div key={i} className="w-1/2 md:w-1/3 flex flex-col shrink">
                 {section?.title && (
                   <h4
-                    className="mt-16 mb-8 h-4"
+                    className="mt-16 mb-8 h-12"
                     dangerouslySetInnerHTML={{ __html: section.title }}
                   />
                 )}

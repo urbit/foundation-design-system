@@ -109,7 +109,7 @@ function Footer({
       key: i,
       className: "w-1/2 md:w-1/3 flex flex-col shrink"
     }, section?.title && /*#__PURE__*/React$2.createElement("h4", {
-      className: "mt-16 mb-8",
+      className: "mt-16 mb-8 h-12",
       dangerouslySetInnerHTML: {
         __html: section.title
       }

@@ -1,10 +1,20 @@
-import React$2, { useState, useEffect, Component } from 'react';
+import React$3, { useState, useEffect, Component } from 'react';
 import Link from 'next/link';
+
+function BackgroundImage(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: `bg-img bg-cover ${props.className || ""}`,
+    style: {
+      backgroundImage: `url(${props.src})`,
+      ...props.style
+    }
+  });
+}
 
 function Container({
   children
 }) {
-  return /*#__PURE__*/React$2.createElement("div", {
+  return /*#__PURE__*/React$3.createElement("div", {
     className: "flex flex-col min-h-screen w-screen max-w-full items-center"
   }, children);
 }
@@ -12,7 +22,7 @@ function Container({
 function SingleColumn({
   children
 }) {
-  return /*#__PURE__*/React$2.createElement("div", {
+  return /*#__PURE__*/React$3.createElement("div", {
     className: "flex flex-col w-full items-center max-w-screen-2xl"
   }, children);
 }
@@ -90,7 +100,7 @@ function Section({
     "layout-narrow": narrow,
     layout: !narrow
   });
-  return /*#__PURE__*/React$2.createElement("section", {
+  return /*#__PURE__*/React$3.createElement("section", {
     className: `w-full px-4 md:px-8 ${spacing} ${className}`
   }, children);
 }
@@ -99,39 +109,39 @@ function Footer({
   title = "",
   data = [[{}], [{}]]
 }) {
-  return /*#__PURE__*/React$2.createElement("footer", {
+  return /*#__PURE__*/React$3.createElement("footer", {
     className: "bg-wall-100 mt-20 w-full flex justify-center"
-  }, /*#__PURE__*/React$2.createElement(SingleColumn, null, /*#__PURE__*/React$2.createElement(Section, {
+  }, /*#__PURE__*/React$3.createElement(SingleColumn, null, /*#__PURE__*/React$3.createElement(Section, {
     short: true,
     className: "flex flex-row flex-wrap"
   }, data?.[0]?.map((section, i) => {
-    return /*#__PURE__*/React$2.createElement("div", {
+    return /*#__PURE__*/React$3.createElement("div", {
       key: i,
       className: "w-1/2 md:w-1/3 flex flex-col shrink"
-    }, section?.title && /*#__PURE__*/React$2.createElement("h4", {
+    }, section?.title && /*#__PURE__*/React$3.createElement("h4", {
       className: "mt-16 mb-4 h-12",
       dangerouslySetInnerHTML: {
         __html: section.title
       }
     }), section.links.map(link => {
-      return /*#__PURE__*/React$2.createElement(Link, {
+      return /*#__PURE__*/React$3.createElement(Link, {
         key: link.href,
         href: link.href,
         passHref: true
-      }, /*#__PURE__*/React$2.createElement("a", {
+      }, /*#__PURE__*/React$3.createElement("a", {
         className: "type-medium text-wall-500"
       }, link.title));
     }));
-  })), /*#__PURE__*/React$2.createElement(Section, {
+  })), /*#__PURE__*/React$3.createElement(Section, {
     className: "flex flex-col md:flex-row"
   }, data?.[1]?.map(link => {
-    return /*#__PURE__*/React$2.createElement("div", {
+    return /*#__PURE__*/React$3.createElement("div", {
       key: link.href,
       className: "md:w-1/3"
-    }, /*#__PURE__*/React$2.createElement(Link, {
+    }, /*#__PURE__*/React$3.createElement(Link, {
       href: link.href,
       passHref: true
-    }, /*#__PURE__*/React$2.createElement("a", {
+    }, /*#__PURE__*/React$3.createElement("a", {
       className: "type-medium text-wall-500"
     }, link.title)));
   }))));
@@ -168,26 +178,26 @@ function IntraNav({
     title: "Developers",
     href: "https://developers.urbit.org"
   }];
-  return /*#__PURE__*/React$2.createElement("div", {
+  return /*#__PURE__*/React$3.createElement("div", {
     className: "bg-wall-100 w-full"
-  }, /*#__PURE__*/React$2.createElement("div", {
+  }, /*#__PURE__*/React$3.createElement("div", {
     className: "layout max-w-screen-lg hidden md:block px-8 mx-auto"
-  }, /*#__PURE__*/React$2.createElement("div", {
+  }, /*#__PURE__*/React$3.createElement("div", {
     className: "flex justify-between items-center py-2"
-  }, /*#__PURE__*/React$2.createElement("div", {
+  }, /*#__PURE__*/React$3.createElement("div", {
     className: "flex space-x-4"
-  }, sites.map(site => /*#__PURE__*/React$2.createElement("a", {
+  }, sites.map(site => /*#__PURE__*/React$3.createElement("a", {
     className: classNames("text-xs", {
       "font-bold": ourSite.includes(site.href)
     }),
     href: site.href
-  }, site.title))), /*#__PURE__*/React$2.createElement("button", {
+  }, site.title))), /*#__PURE__*/React$3.createElement("button", {
     onClick: e => {
       e.stopPropagation();
       search.toggleSearch(e);
     },
     className: "bg-white text-wall-500 flex px-3 py-2 rounded-lg text-xs font-medium"
-  }, /*#__PURE__*/React$2.createElement("div", null, "Search"), /*#__PURE__*/React$2.createElement("div", {
+  }, /*#__PURE__*/React$3.createElement("div", null, "Search"), /*#__PURE__*/React$3.createElement("div", {
     className: "ml-2 text-wall-400"
   }, shortcut)))));
 }
@@ -12398,18 +12408,18 @@ const sup = {
 
 };
 
-const TabContext = /*#__PURE__*/React$2.createContext();
+const TabContext = /*#__PURE__*/React$3.createContext();
 
 const Tabs = ({
   labels,
   children
 }) => {
-  const [currentTab, setCurrentTab] = React$2.useState(labels[0]);
-  return /*#__PURE__*/React$2.createElement(TabContext.Provider, {
+  const [currentTab, setCurrentTab] = React$3.useState(labels[0]);
+  return /*#__PURE__*/React$3.createElement(TabContext.Provider, {
     value: currentTab
-  }, /*#__PURE__*/React$2.createElement("ul", {
+  }, /*#__PURE__*/React$3.createElement("ul", {
     className: "flex items-center display cursor-pointer space-x-4"
-  }, labels.map(label => /*#__PURE__*/React$2.createElement("li", {
+  }, labels.map(label => /*#__PURE__*/React$3.createElement("li", {
     className: "block bg-wall-100 tab rounded-xl " + (currentTab === label ? "font-semibold" : ""),
     key: label,
     onClick: () => setCurrentTab(label)
@@ -12420,7 +12430,7 @@ const Tab = ({
   label,
   children
 }) => {
-  const currentTab = React$2.useContext(TabContext);
+  const currentTab = React$3.useContext(TabContext);
 
   if (label !== currentTab) {
     return null;
@@ -12434,10 +12444,10 @@ const Button = ({
   link,
   color
 }) => {
-  return /*#__PURE__*/React$2.createElement(Link, {
+  return /*#__PURE__*/React$3.createElement(Link, {
     passHref: true,
     href: link
-  }, /*#__PURE__*/React$2.createElement("a", {
+  }, /*#__PURE__*/React$3.createElement("a", {
     className: "button-lg max-w-fit " + color
   }, label));
 };
@@ -12446,9 +12456,9 @@ const Callout = ({
   title,
   children
 }) => {
-  return /*#__PURE__*/React$2.createElement("div", {
+  return /*#__PURE__*/React$3.createElement("div", {
     className: "bg-wall-100 rounded-xl display p-7 flex flex-col space-y-4"
-  }, title && /*#__PURE__*/React$2.createElement("h2", null, title), children);
+  }, title && /*#__PURE__*/React$3.createElement("h2", null, title), children);
 };
 
 /**
@@ -18213,7 +18223,7 @@ utilities$4.camelCase = camelCase;
 	exports["default"] = StyleToJS;
 } (cjs));
 
-var React$1 = React$2;
+var React$2 = React$3;
 
 var styleToJS = cjs.default;
 /**
@@ -18318,7 +18328,7 @@ function setStyleProp$1(style, props) {
  */
 
 
-var PRESERVE_CUSTOM_ATTRIBUTES = React$1.version.split('.')[0] >= 16; // Taken from
+var PRESERVE_CUSTOM_ATTRIBUTES = React$2.version.split('.')[0] >= 16; // Taken from
 // https://github.com/facebook/react/blob/cae635054e17a6f107a39d328649137b83f25972/packages/react-dom/src/client/validateDOMNesting.js#L213
 
 var elementsWithNoTextChildren = new Set(['tr', 'tbody', 'thead', 'tfoot', 'colgroup', 'table', 'head', 'html', 'frameset']);
@@ -18427,7 +18437,7 @@ function getPropName(attributeName) {
   return reactProperty.possibleStandardNames[attributeName];
 }
 
-var React = React$2;
+var React$1 = React$3;
 
 var attributesToProps$1 = attributesToProps$2;
 
@@ -18447,7 +18457,7 @@ var canTextBeChildOfNode = utilities$1.canTextBeChildOfNode;
 
 function domToReact$1(nodes, options) {
   options = options || {};
-  var library = options.library || React;
+  var library = options.library || React$1;
   var cloneElement = library.cloneElement;
   var createElement = library.createElement;
   var isValidElement = library.isValidElement;
@@ -21414,7 +21424,7 @@ function Fence({
   children,
   language
 }) {
-  return /*#__PURE__*/React$2.createElement(Highlight, _extends$1({}, defaultProps, {
+  return /*#__PURE__*/React$3.createElement(Highlight, _extends$1({}, defaultProps, {
     key: language,
     language: language,
     code: children,
@@ -21425,13 +21435,13 @@ function Fence({
     tokens,
     getLineProps,
     getTokenProps
-  }) => /*#__PURE__*/React$2.createElement("pre", {
+  }) => /*#__PURE__*/React$3.createElement("pre", {
     className: className,
     style: style
-  }, tokens.slice(0, -1).map((line, i) => /*#__PURE__*/React$2.createElement("div", getLineProps({
+  }, tokens.slice(0, -1).map((line, i) => /*#__PURE__*/React$3.createElement("div", getLineProps({
     line,
     key: i
-  }), line.map((token, key) => /*#__PURE__*/React$2.createElement("span", getTokenProps({
+  }), line.map((token, key) => /*#__PURE__*/React$3.createElement("span", getTokenProps({
     token,
     key
   })))))));
@@ -21515,21 +21525,21 @@ const RenderHtml = ({
 
 const superscript = ({
   children
-}) => /*#__PURE__*/React$2.createElement("sup", null, children);
+}) => /*#__PURE__*/React$3.createElement("sup", null, children);
 
 const CustomFence = ({
   children
-}) => /*#__PURE__*/React$2.createElement("pre", null, children);
+}) => /*#__PURE__*/React$3.createElement("pre", null, children);
 
 const NextLink = ({
   href,
   target,
   children
 }) => {
-  return /*#__PURE__*/React$2.createElement(Link, {
+  return /*#__PURE__*/React$3.createElement(Link, {
     href: href,
     passHref: true
-  }, /*#__PURE__*/React$2.createElement("a", {
+  }, /*#__PURE__*/React$3.createElement("a", {
     target: target
   }, children));
 };
@@ -21570,7 +21580,7 @@ function MarkdownParse({
 function MarkdownRender({
   content
 }) {
-  return markdoc_default.renderers.react(content, React$2, {
+  return markdoc_default.renderers.react(content, React$3, {
     components: {
       Fence,
       Tabs,
@@ -21696,5 +21706,5 @@ const Markdown = {
   render: MarkdownRender
 };
 
-export { Container, Footer, IntraNav, Markdown, Section, SingleColumn };
+export { BackgroundImage, Container, Footer, IntraNav, Markdown, Section, SingleColumn };
 //# sourceMappingURL=index.js.map

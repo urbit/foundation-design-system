@@ -2,13 +2,23 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var React$2 = require('react');
+var React$3 = require('react');
 var Link = require('next/link');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var React__default = /*#__PURE__*/_interopDefaultLegacy(React$2);
+var React__default = /*#__PURE__*/_interopDefaultLegacy(React$3);
 var Link__default = /*#__PURE__*/_interopDefaultLegacy(Link);
+
+function BackgroundImage(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: `bg-img bg-cover ${props.className || ""}`,
+    style: {
+      backgroundImage: `url(${props.src})`,
+      ...props.style
+    }
+  });
+}
 
 function Container({
   children
@@ -150,7 +160,7 @@ function IntraNav({
   search,
   ourSite = ""
 }) {
-  const [shortcut, setShortcut] = React$2.useState("");
+  const [shortcut, setShortcut] = React$3.useState("");
 
   const detectOS = () => {
     const agent = window.navigator.appVersion;
@@ -164,7 +174,7 @@ function IntraNav({
     }
   };
 
-  React$2.useEffect(() => {
+  React$3.useEffect(() => {
     setShortcut(detectOS());
   }, []);
   const sites = [{
@@ -17025,7 +17035,7 @@ var Highlight = /*@__PURE__*/function (Component) {
   };
 
   return Highlight;
-}(React$2.Component);
+}(React$3.Component);
 
 var htmlReactParser = {exports: {}};
 
@@ -18222,7 +18232,7 @@ utilities$4.camelCase = camelCase;
 	exports["default"] = StyleToJS;
 } (cjs));
 
-var React$1 = React__default["default"];
+var React$2 = React__default["default"];
 
 var styleToJS = cjs.default;
 /**
@@ -18327,7 +18337,7 @@ function setStyleProp$1(style, props) {
  */
 
 
-var PRESERVE_CUSTOM_ATTRIBUTES = React$1.version.split('.')[0] >= 16; // Taken from
+var PRESERVE_CUSTOM_ATTRIBUTES = React$2.version.split('.')[0] >= 16; // Taken from
 // https://github.com/facebook/react/blob/cae635054e17a6f107a39d328649137b83f25972/packages/react-dom/src/client/validateDOMNesting.js#L213
 
 var elementsWithNoTextChildren = new Set(['tr', 'tbody', 'thead', 'tfoot', 'colgroup', 'table', 'head', 'html', 'frameset']);
@@ -18436,7 +18446,7 @@ function getPropName(attributeName) {
   return reactProperty.possibleStandardNames[attributeName];
 }
 
-var React = React__default["default"];
+var React$1 = React__default["default"];
 
 var attributesToProps$1 = attributesToProps$2;
 
@@ -18456,7 +18466,7 @@ var canTextBeChildOfNode = utilities$1.canTextBeChildOfNode;
 
 function domToReact$1(nodes, options) {
   options = options || {};
-  var library = options.library || React;
+  var library = options.library || React$1;
   var cloneElement = library.cloneElement;
   var createElement = library.createElement;
   var isValidElement = library.isValidElement;
@@ -21705,6 +21715,7 @@ const Markdown = {
   render: MarkdownRender
 };
 
+exports.BackgroundImage = BackgroundImage;
 exports.Container = Container;
 exports.Footer = Footer;
 exports.IntraNav = IntraNav;

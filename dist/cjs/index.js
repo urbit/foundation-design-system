@@ -118,8 +118,11 @@ function Footer({
       key: i,
       className: "w-1/2 md:w-1/3 flex flex-col shrink"
     }, section?.title && /*#__PURE__*/React__default["default"].createElement("h4", {
-      className: "mt-16 mb-8"
-    }, section.title), section.links.map(link => {
+      className: "mt-16 mb-8",
+      dangerouslySetInnerHTML: {
+        __html: section.title
+      }
+    }), section.links.map(link => {
       return /*#__PURE__*/React__default["default"].createElement(Link__default["default"], {
         key: link.href,
         href: link.href,

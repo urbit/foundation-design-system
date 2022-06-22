@@ -96,6 +96,7 @@ function Section({
 }
 
 function Footer({
+  title = "",
   data = [[{}], [{}]]
 }) {
   return /*#__PURE__*/React$2.createElement("footer", {
@@ -103,13 +104,16 @@ function Footer({
   }, /*#__PURE__*/React$2.createElement(SingleColumn, null, /*#__PURE__*/React$2.createElement(Section, {
     short: true,
     className: "flex flex-row flex-wrap"
-  }, data?.[0]?.map(section => {
+  }, data?.[0]?.map((section, i) => {
     return /*#__PURE__*/React$2.createElement("div", {
-      key: section.title,
+      key: i,
       className: "w-1/2 md:w-1/3 flex flex-col shrink"
-    }, /*#__PURE__*/React$2.createElement("h4", {
-      className: "mt-16 mb-8"
-    }, section.title), section.links.map(link => {
+    }, section?.title && /*#__PURE__*/React$2.createElement("h4", {
+      className: "mt-16 mb-4 h-12",
+      dangerouslySetInnerHTML: {
+        __html: section.title
+      }
+    }), section.links.map(link => {
       return /*#__PURE__*/React$2.createElement(Link, {
         key: link.href,
         href: link.href,

@@ -3,9 +3,15 @@ import SingleColumn from "../SingleColumn";
 import Section from "../Section";
 import React from "react";
 
-export default function Footer({ data = [[{}], [{}]] }) {
+export default function Footer({ title = "", data = [[{}], [{}]] }) {
   return (
     <footer className="bg-wall-100 mt-20 w-full flex justify-center">
+      {title && (
+        <h3
+          className="layout text-2xl font-semibold px-8 pt-8"
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
+      )}
       <SingleColumn>
         <Section short className="flex flex-row flex-wrap">
           {data?.[0]?.map((section) => {

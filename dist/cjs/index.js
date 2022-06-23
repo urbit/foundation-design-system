@@ -211,6 +211,124 @@ function IntraNav({
   }, shortcut)))));
 }
 
+const TableOfContents = ({
+  staticPosition,
+  noh3s
+}) => {
+  const {
+    nestedHeadings
+  } = useHeadingsData(noh3s);
+  const [activeId, setActiveId] = React$2.useState();
+  useIntersectionObserver(setActiveId);
+  return /*#__PURE__*/React__default["default"].createElement("nav", {
+    className: (staticPosition ? "static" : "sticky") + " min-h-0 overflow-y-auto w-52 shrink-0 pb-24 hidden lg:block pl-4",
+    style: {
+      top: "8rem",
+      height: "calc(100vh - 16rem)"
+    }
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "relative after:fixed after:bg-gradient-to-t after:from-white after:via-white after:bottom-0 after:w-52 after:h-60 after:pointer-events-none"
+  }, /*#__PURE__*/React__default["default"].createElement(Headings, {
+    headings: nestedHeadings,
+    activeId: activeId
+  })));
+};
+
+const getNestedHeadings = headingElements => {
+  const nestedHeadings = [];
+  headingElements.forEach((heading, index) => {
+    const {
+      innerText: title,
+      id
+    } = heading;
+
+    if (heading.nodeName === "H2") {
+      nestedHeadings.push({
+        id,
+        title,
+        items: []
+      });
+    } else if (heading.nodeName === "H3" && nestedHeadings.length > 0) {
+      nestedHeadings[nestedHeadings.length - 1].items.push({
+        id,
+        title
+      });
+    }
+  });
+  return nestedHeadings;
+};
+
+const useHeadingsData = noh3s => {
+  const [nestedHeadings, setNestedHeadings] = React$2.useState([]);
+  const query = noh3s ? "h2" : "h2, h3";
+  React$2.useEffect(() => {
+    const headingElements = Array.from(document.querySelectorAll(query));
+    const newNestedHeadings = getNestedHeadings(headingElements);
+    setNestedHeadings(newNestedHeadings);
+  }, []);
+  return {
+    nestedHeadings
+  };
+};
+
+const Headings = ({
+  headings,
+  activeId
+}) => /*#__PURE__*/React__default["default"].createElement("ul", {
+  className: classNames({
+    hidden: headings.length === 1 && headings?.[0]?.items?.length === 0
+  })
+}, headings.map((heading, index) => /*#__PURE__*/React__default["default"].createElement("li", {
+  key: heading.id
+}, /*#__PURE__*/React__default["default"].createElement("a", {
+  className: classNames({
+    "font-bold": index === 0,
+    "font-medium text-sm": index !== 0,
+    "text-green-400": heading.id === activeId && index !== 0
+  }),
+  href: `#${heading.id}`
+}, heading.title), heading.items.length > 0 && /*#__PURE__*/React__default["default"].createElement("ul", {
+  className: "pl-2 text-xs"
+}, heading.items.map(child => /*#__PURE__*/React__default["default"].createElement("li", {
+  key: child.id,
+  className: child.id === activeId ? "text-green-400" : "text-wall-500"
+}, /*#__PURE__*/React__default["default"].createElement("a", {
+  href: `#${child.id}`
+}, child.title)))))));
+
+const useIntersectionObserver = setActiveId => {
+  const headingElementsRef = React$2.useRef({});
+  React$2.useEffect(() => {
+    const callback = headings => {
+      headingElementsRef.current = headings.reduce((map, headingElement) => {
+        map[headingElement.target.id] = headingElement;
+        return map;
+      }, headingElementsRef.current);
+      const visibleHeadings = [];
+      Object.keys(headingElementsRef.current).forEach(key => {
+        const headingElement = headingElementsRef.current[key];
+        if (headingElement.isIntersecting) visibleHeadings.push(headingElement);
+      });
+
+      const getIndexFromId = id => headingElements.findIndex(heading => heading.id === id);
+
+      if (visibleHeadings.length === 1) {
+        setActiveId(visibleHeadings[0].target.id);
+      } else if (visibleHeadings.length > 1) {
+        const sortedVisibleHeadings = visibleHeadings.sort((a, b) => getIndexFromId(a.target.id) > getIndexFromId(b.target.id));
+        setActiveId(sortedVisibleHeadings[0].target.id);
+      }
+    };
+
+    const observer = new IntersectionObserver(callback, {
+      rootMargin: "0px 0px -50% 0px"
+    });
+    const headingElements = Array.from(document.querySelectorAll("h2, h3"));
+    headingElements.forEach(element => observer.observe(element));
+    return () => observer.disconnect();
+  }, [setActiveId]);
+};
+
 function TwoUp({
   children,
   className = ""
@@ -21735,5 +21853,6 @@ exports.IntraNav = IntraNav;
 exports.Markdown = Markdown;
 exports.Section = Section;
 exports.SingleColumn = SingleColumn;
+exports.TableOfContents = TableOfContents;
 exports.TwoUp = TwoUp;
 //# sourceMappingURL=index.js.map

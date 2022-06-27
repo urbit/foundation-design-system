@@ -10947,6 +10947,8 @@ function findTagEnd(content, start = 0) {
         if (char === '"') state = 1;else if (content.startsWith(CLOSE, pos)) return pos;
     }
   }
+
+  return null;
 }
 
 function parseTag(content, line, contentStart) {
@@ -10998,7 +11000,13 @@ function parseTags(content, firstLine = 0) {
     }
 
     if (!content.startsWith(OPEN, pos)) continue;
-    const end = findTagEnd(content, pos) || 0;
+    const end = findTagEnd(content, pos);
+
+    if (end == null) {
+      pos = pos + OPEN.length;
+      continue;
+    }
+
     const text2 = content.slice(pos, end + CLOSE.length);
     const inner = content.slice(pos + OPEN.length, end);
     const lineStart = content.lastIndexOf("\n", pos);
@@ -11053,6 +11061,11 @@ function createToken(state, content, contentStart) {
     const token = state.push(type, "", nesting);
     token.info = content;
     token.meta = meta;
+
+    if (!state.delimiters) {
+      state.delimiters = [];
+    }
+
     return token;
   } catch (error2) {
     if (!(error2 instanceof import_tag2.SyntaxError)) throw error2;
@@ -11377,7 +11390,7 @@ function transform(document2) {
     if (first.type === "list") thead2.push(convertToRow(first, "th"));
 
     for (const row of rest) {
-      if (row.type === "list") convertToRow(row);else if (row.type === "tag" && row.tag == "if") {
+      if (row.type === "list") convertToRow(row);else if (row.type === "tag" && row.tag === "if") {
         const children = [];
 
         for (const child of row.children) {
@@ -11433,7 +11446,10 @@ function handleAttrs(token, type) {
     case "link":
       {
         const attrs = Object.fromEntries(token.attrs);
-        return {
+        return attrs.title ? {
+          href: attrs.href,
+          title: attrs.title
+        } : {
           href: attrs.href
         };
       }
@@ -11441,7 +11457,11 @@ function handleAttrs(token, type) {
     case "image":
       {
         const attrs = Object.fromEntries(token.attrs);
-        return {
+        return attrs.title ? {
+          alt: token.content,
+          src: attrs.src,
+          title: attrs.title
+        } : {
           alt: token.content,
           src: attrs.src
         };
@@ -11463,6 +11483,33 @@ function handleAttrs(token, type) {
           content: token.content,
           language
         };
+      }
+
+    case "td":
+    case "th":
+      {
+        if (token.attrs) {
+          const attrs = Object.fromEntries(token.attrs);
+          let align;
+
+          if (attrs.style) {
+            if (attrs.style.includes("left")) {
+              align = "left";
+            } else if (attrs.style.includes("center")) {
+              align = "center";
+            } else if (attrs.style.includes("right")) {
+              align = "right";
+            }
+          }
+
+          if (align) {
+            return {
+              align
+            };
+          }
+        }
+
+        return {};
       }
 
     default:
@@ -11653,6 +11700,9 @@ var image$1 = {
     },
     alt: {
       type: String
+    },
+    title: {
+      type: String
     }
   }
 };
@@ -11809,12 +11859,6 @@ var text = {
 var hardbreak = {
   render: "br"
 };
-var softbreak = {
-  transform(_node, _config) {
-    return " ";
-  }
-
-};
 var html$1 = {
   attributes: {
     content: {
@@ -11825,6 +11869,12 @@ var html$1 = {
 
   transform(node) {
     return node.attributes.content ? new Raw(node.attributes.content, node.inline) : null;
+  }
+
+};
+var softbreak = {
+  transform(_node, _config) {
+    return " ";
   }
 
 };
@@ -12142,7 +12192,7 @@ function validateFunction(fn, config) {
   if (!schema) return [{
     id: "function-undefined",
     level: "critical",
-    message: `Undefined function '${fn.name}'`
+    message: `Undefined function: '${fn.name}'`
   }];
   if (schema.validate) errors.push(...schema.validate(fn, config));
 
@@ -12154,7 +12204,7 @@ function validateFunction(fn, config) {
         errors.push({
           id: "parameter-undefined",
           level: "error",
-          message: `Invalid parameter '${key}'`
+          message: `Invalid parameter: '${key}'`
         });
         continue;
       }
@@ -12168,7 +12218,7 @@ function validateFunction(fn, config) {
           errors.push({
             id: "parameter-type-invalid",
             level: "error",
-            message: `Parameter '${key}' of '${fn.name}' must be type '${typeToString(param.type)}'`
+            message: `Parameter '${key}' of '${fn.name}' must be type of '${typeToString(param.type)}'`
           });
         } else if (Array.isArray(valid)) {
           errors.push(...valid);
@@ -12182,7 +12232,7 @@ function validateFunction(fn, config) {
   }] of Object.entries(schema.parameters ?? {})) if (required && fn.parameters[key] === void 0) errors.push({
     id: "parameter-missing-required",
     level: "error",
-    message: `Missing required parameter '${key}'`
+    message: `Missing required parameter: '${key}'`
   });
 
   return errors;
@@ -12196,7 +12246,7 @@ function validate(node, config) {
     errors.push({
       id: node.tag ? "tag-undefined" : "node-undefined",
       level: "critical",
-      message: node.tag ? `Undefined tag '${node.tag}'` : `Undefined node '${node.type}'`
+      message: node.tag ? `Undefined tag: '${node.tag}'` : `Undefined node: '${node.type}'`
     });
     return errors;
   }
@@ -12204,7 +12254,7 @@ function validate(node, config) {
   if (schema.selfClosing && node.children.length > 0) errors.push({
     id: "tag-selfclosing-has-children",
     level: "critical",
-    message: `Tag '${node.tag}' should be self-closing`
+    message: `'${node.tag}' tag should be self-closing`
   });
   const attributes = { ...globalAttributes,
     ...schema.attributes
@@ -12218,7 +12268,7 @@ function validate(node, config) {
       errors.push({
         id: "attribute-undefined",
         level: "error",
-        message: `Invalid attribute '${key}'`
+        message: `Invalid attribute: '${key}'`
       });
       continue;
     }
@@ -12237,7 +12287,7 @@ function validate(node, config) {
     if (key === "id" && value.match(/^[0-9]/)) errors.push({
       id: "attribute-value-invalid",
       level: "error",
-      message: "The ID attribute must not start with a number"
+      message: "The id attribute must not start with a number"
     });
 
     if (type) {
@@ -12247,7 +12297,7 @@ function validate(node, config) {
         errors.push({
           id: "attribute-type-invalid",
           level: errorLevel || "error",
-          message: `Attribute '${key}' must be type '${typeToString(type)}'`
+          message: `Attribute '${key}' must be type of '${typeToString(type)}'`
         });
       }
 
@@ -12274,7 +12324,7 @@ function validate(node, config) {
   }] of Object.entries(attributes)) if (required && node.attributes[key] === void 0) errors.push({
     id: "attribute-missing-required",
     level: "error",
-    message: `Missing required attribute '${key}'`
+    message: `Missing required attribute: '${key}'`
   });
 
   for (const {

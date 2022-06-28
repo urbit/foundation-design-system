@@ -9,6 +9,13 @@ module.exports = {
       "wall-500": "#5A564F",
       "wall-600": "#24221E",
       washedWall: "rgba(240, 239, 236, .8)", // for overlays
+      // AntiWall for darkmode
+      "antiwall-100": "#1C1E21",
+      "antiwall-200": "#1C1F24",
+      "antiwall-300": "#373B42",
+      "antiwall-400": "#6E737B",
+      "antiwall-500": "#A5A9B0",
+      "antiwall-600": "#DBDDE1",
       // Greens (Theme Primary Color)
       "green-100": "#E5F7F1",
       "green-200": "#BFEBDB",
@@ -61,7 +68,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      invert: ["dark"],
+    },
   },
   plugins: [require("@tailwindcss/aspect-ratio")],
 };

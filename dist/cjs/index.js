@@ -119,28 +119,27 @@ function Footer({
   data = [[{}], [{}]]
 }) {
   return /*#__PURE__*/React__default["default"].createElement("footer", {
-    className: "bg-wall-100 mt-20 w-full flex justify-center z-10"
+    className: "bg-wall-100 mt-20 w-full flex justify-center"
   }, /*#__PURE__*/React__default["default"].createElement(SingleColumn, null, /*#__PURE__*/React__default["default"].createElement(Section, {
     short: true,
     className: "flex flex-row flex-wrap"
   }, data?.[0]?.map((section, i) => {
-    return /*#__PURE__*/React__default["default"].createElement("div", {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, i === 0 && /*#__PURE__*/React__default["default"].createElement("h3", {
+      className: "mt-12 text-2xl w-full"
+    }, "~"), /*#__PURE__*/React__default["default"].createElement("div", {
       key: i,
       className: "w-1/2 md:w-1/3 flex flex-col shrink"
     }, section?.title && /*#__PURE__*/React__default["default"].createElement("h4", {
-      className: "mt-16 mb-4 h-12",
-      dangerouslySetInnerHTML: {
-        __html: section.title
-      }
-    }), section.links.map(link => {
+      className: "mt-10 h-8 font-bold text-base"
+    }, section.title), section.links.map(link => {
       return /*#__PURE__*/React__default["default"].createElement(Link__default["default"], {
         key: link.href,
         href: link.href,
         passHref: true
       }, /*#__PURE__*/React__default["default"].createElement("a", {
-        className: "type-medium text-wall-500"
+        className: "type-medium text-wall-600 pb-1"
       }, link.title));
-    }));
+    })));
   })), /*#__PURE__*/React__default["default"].createElement(Section, {
     className: "flex flex-col md:flex-row"
   }, data?.[1]?.map(link => {
@@ -151,7 +150,7 @@ function Footer({
       href: link.href,
       passHref: true
     }, /*#__PURE__*/React__default["default"].createElement("a", {
-      className: "type-medium text-wall-500"
+      className: "type-medium text-wall-600"
     }, link.title)));
   }))));
 }

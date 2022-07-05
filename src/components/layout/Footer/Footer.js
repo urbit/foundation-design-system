@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Footer({ title = "", data = [[{}], [{}]] }) {
   return (
-    <footer className="bg-wall-100 mt-20 w-full flex justify-center">
+    <footer className="bg-wall-100 mt-20 w-full flex justify-center z-10">
       <SingleColumn>
         <Section short className="flex flex-row flex-wrap">
           {data?.[0]?.map((section, i) => {

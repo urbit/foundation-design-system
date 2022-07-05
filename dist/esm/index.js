@@ -110,7 +110,7 @@ function Footer({
   data = [[{}], [{}]]
 }) {
   return /*#__PURE__*/React$2.createElement("footer", {
-    className: "bg-wall-100 mt-20 w-full flex justify-center"
+    className: "bg-wall-100 mt-20 w-full flex justify-center z-10"
   }, /*#__PURE__*/React$2.createElement(SingleColumn, null, /*#__PURE__*/React$2.createElement(Section, {
     short: true,
     className: "flex flex-row flex-wrap"

@@ -2,15 +2,14 @@
   "name": "foundation-design-system",
   "version": "0.0.0",
   "description": "A system of design variables, Markdoc and React components intended for Urbit Foundation projects.",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "src/index.js",
   "files": [
-    "dist",
+    "src",
     "styles",
     "tailwind.config.js"
   ],
   "scripts": {
-    "prepare": "patch-package && npm run build",
+    "prepare": "patch-package",
     "rollup": "rollup -c",
     "build": "npm run rollup"
   },

@@ -6,13 +6,20 @@ A system of design variables, Markdoc and React components intended for Urbit Fo
 We build all our sites with [Next.js](https://nextjs.org) and [Tailwind](https://tailwindcss.com) and this package is designed for those scenarios. Presently this is not published as an npm package; it's intended as an internal tool for rapid iteration. Nevertheless it can be installed like any other using the Git repo:
 
 ```bash
-npm i urbit/foundation-design-system
+npm i urbit/foundation-design-system next-transpile-modules
 ```
 
 If it doesn't auto-install peer dependencies, then install them as well:
 
 ```bash
 npm i @tailwindcss/aspect-ratio autoprefixer postcss tailwindcss next
+```
+
+Then set up your `next.config.js` file like so:
+
+```js
+const withTM = require("next-transpile-modules")(["foundation-design-system"]);
+module.exports = withTM({ /* ... */ });
 ```
 
 ### Tailwind config and other CSS styles
@@ -75,13 +82,3 @@ And on front-end pass it to the renderer:
 ```
 
 *Why are we doing JSON stringification and parsing?* you ask. The wind answers, and you feel the breeze on the back of your neck.
-
-## Build
-
-It's what you expect - installation builds your files for you.
-
-```bash
-npm i
-```
-
-It'll output files in `dist` on install (and on `npm run build`, if you need it!) which need to be committed as artifacts when contributing.

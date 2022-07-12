@@ -7,125 +7,23 @@ import { footnoteItem } from "../schema/footnoteItem.markdoc.js";
 import { link } from "../schema/link.markdoc.js";
 import { image } from "../schema/image.markdoc.js";
 import { sup } from "../schema/superscript.markdoc.js";
+import { fence } from "../schema/fence.markdoc";
+import { tab, tabs } from "../schema/tabs.markdoc";
+import { html } from "../schema/html.markdoc";
+import { button } from "../schema/button.markdoc";
+import { callout } from "../schema/callout.markdoc";
 import Tabs from "./markdown/Tabs";
 import Tab from "./markdown/Tab";
 import Button from "./markdown/Button";
 import Callout from "./markdown/Callout";
-import Highlight, { defaultProps } from "prism-react-renderer";
+import Fence from "./markdown/Fence.js";
 import parse from "html-react-parser";
-import Prism from "prism-react-renderer/prism";
-(typeof global !== "undefined" ? global : window).Prism = Prism;
-require("prismjs/components/prism-hoon");
-
-export function Fence({ children, language }) {
-  return (
-    <Highlight
-      {...defaultProps}
-      key={language}
-      language={language}
-      code={children}
-      theme={undefined}
-    >
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={style}>
-          {tokens.slice(0, -1).map((line, i) => (
-            <div {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
-              ))}
-            </div>
-          ))}
-        </pre>
-      )}
-    </Highlight>
-  );
-}
-
-const fence = {
-  render: "Fence",
-  attributes: {
-    language: {
-      type: String,
-      description:
-        "The programming language of the code block. Place it after the backticks.",
-    },
-  },
-};
-
-const tab = {
-  render: "Tab",
-  attributes: {
-    label: {
-      type: String,
-    },
-  },
-};
-
-const tabs = {
-  render: "Tabs",
-  attributes: {},
-  transform(node, config) {
-    const labels = node
-      .transformChildren(config)
-      .filter((child) => child && child.name === "Tab")
-      .map((tab) => (typeof tab === "object" ? tab.attributes.label : null));
-
-    return new Tag(this.render, { labels }, node.transformChildren(config));
-  },
-};
-
-const button = {
-  render: "Button",
-  attributes: {
-    label: {
-      type: String,
-    },
-    link: {
-      type: String,
-    },
-    color: {
-      type: String,
-    },
-  },
-};
-
-const callout = {
-  render: "Callout",
-  attributes: {
-    title: {
-      type: String,
-    },
-  },
-};
-
-const customFence = {
-  render: "CustomFence",
-  attributes: {},
-};
-
-const html = {
-  render: "RenderHtml",
-  attributes: {
-    content: {
-      type: String,
-    },
-  },
-  transform(node) {
-    return node.attributes.content
-      ? new Tag("RenderHtml", { content: node.attributes.content }, [
-          node.inline,
-        ])
-      : null;
-  },
-};
 
 const RenderHtml = ({ content }) => {
   return parse(content);
 };
 
 const superscript = ({ children }) => <sup>{children}</sup>;
-
-const CustomFence = ({ children }) => <pre>{children}</pre>;
 
 const NextLink = ({ href, target, children }) => {
   return (
@@ -156,7 +54,6 @@ export function MarkdownParse({ post }) {
       tab,
       button,
       callout,
-      customFence,
       RenderHtml,
       superscript,
       NextLink,
@@ -172,7 +69,6 @@ export function MarkdownRender({ content }) {
       Tab,
       Button,
       Callout,
-      CustomFence,
       RenderHtml,
       NextLink,
     },

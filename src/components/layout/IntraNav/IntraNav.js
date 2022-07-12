@@ -27,7 +27,7 @@ export default function IntraNav({ search, ourSite = "" }) {
     <div className="bg-wall-100 w-full">
       <div className="layout max-w-screen-lg hidden md:block px-8 mx-auto">
         <div className="flex justify-between items-center py-2">
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 items-center">
             {sites.map((site) => (
               <a
                 className={classNames("text-xs", {
@@ -38,6 +38,10 @@ export default function IntraNav({ search, ourSite = "" }) {
                 {site.title}
               </a>
             ))}
+            <div className="w-[1px] h-[1.25rem] bg-wall-400" />
+            <a className="text-xs" href="https://network.urbit.org">
+              Network Explorer
+            </a>
           </div>
           <button
             onClick={(e) => {

@@ -26,11 +26,11 @@ export function Fence({ children, language, copy = false }) {
     <div
       className="relative"
       onMouseEnter={() => setShowCopy(true)}
-      onMouseLeave={() => setShowCopy(false)}
+      // onMouseLeave={() => setShowCopy(false)}
     >
       {copy && showCopy && (
         <div
-          className="absolute flex items-center justify-center top-4 right-5 z-10 cursor-pointer !p-2 border rounded-xl border-wall-300"
+          className="absolute flex items-center justify-center top-4 right-5 z-10 cursor-pointer !p-2 border rounded-xl border-[#afaeab]"
           onClick={useCopy}
         >
           <p>
@@ -48,7 +48,7 @@ export function Fence({ children, language, copy = false }) {
                   fillRule="evenodd"
                   clipRule="evenodd"
                   d="M0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8ZM7.54325 11.4247L12.1498 5.66647L11.3169 5.00013L7.39013 9.90859L4.60812 7.59025L3.92526 8.40969L7.54325 11.4247Z"
-                  fill="rgb(200,196,189)"
+                  fill="#afaeab"
                 />
               </svg>
             )}

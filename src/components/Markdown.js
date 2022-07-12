@@ -26,7 +26,7 @@ export function Fence({ children, language, copy = false }) {
     <div
       className="relative"
       onMouseEnter={() => setShowCopy(true)}
-      // onMouseLeave={() => setShowCopy(false)}
+      onMouseLeave={() => setShowCopy(false)}
     >
       {copy && showCopy && (
         <div

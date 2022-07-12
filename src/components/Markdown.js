@@ -12,6 +12,7 @@ import { tab, tabs } from "../schema/tabs.markdoc";
 import { html } from "../schema/html.markdoc";
 import { button } from "../schema/button.markdoc";
 import { callout } from "../schema/callout.markdoc";
+import { div } from "../schema/div.markdoc";
 import Tabs from "./markdown/Tabs";
 import Tab from "./markdown/Tab";
 import Button from "./markdown/Button";
@@ -31,6 +32,10 @@ const NextLink = ({ href, target, children }) => {
       <a target={target}>{children}</a>
     </Link>
   );
+};
+
+const Div = ({ className, children }) => {
+  return <div className={className}>{children}</div>;
 };
 
 export function MarkdownParse({ post }) {
@@ -57,6 +62,7 @@ export function MarkdownParse({ post }) {
       RenderHtml,
       superscript,
       NextLink,
+      div,
     },
   });
 }
@@ -71,6 +77,7 @@ export function MarkdownRender({ content }) {
       Callout,
       RenderHtml,
       NextLink,
+      Div,
     },
   });
 }

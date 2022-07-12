@@ -1,8 +1,13 @@
 const path = require("path");
+const menu = require("./lib/menu.js");
 
 module.exports = {
   reactStrictMode: false,
   // target: 'serverless',
+  env: {
+    layout: menu.get("pages/components/layout"),
+    markdown: menu.get("pages/components/markdown"),
+  },
   webpack: (config, { defaultLoaders, isServer }) => {
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {

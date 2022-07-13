@@ -43,6 +43,32 @@ In practice it makes a nice table:
 
 ## Our additions
 
+### Fences
+
+Using code blocks like normal work as you expect. However, we also have the following:
+
+#### Copy icons
+
+````
+```hoon {% copy=true %}
+````
+
+Adds a copy icon top right, that copies the buffer to clipboard.
+
+#### Collapsed or scroll appearances
+
+````
+```hoon {% mode="collapse" %}
+````
+
+Will collapse the code block to a set height and require a click to expand.
+
+````
+```hoon {% mode="scroll" %}
+````
+
+Will set the code block to a set height and allow the user to scroll.
+
 ### Superscript
 
 Pandoc style.

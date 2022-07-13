@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import { useCopyToClipboard } from "../../lib/hooks";
 import Copy from "../../lib/icons/copy";
 import Highlight, { defaultProps } from "prism-react-renderer";
@@ -6,10 +7,31 @@ import Prism from "prism-react-renderer/prism";
 (typeof global !== "undefined" ? global : window).Prism = Prism;
 require("prismjs/components/prism-hoon");
 
-export default function Fence({ children, language, copy = false }) {
+export default function Fence({
+  children,
+  language,
+  copy = false,
+  mode = "full",
+}) {
   const [copyStatus, useCopy] = useCopyToClipboard(children);
+  const [collapsed, setCollapse] = React.useState(Boolean(mode === "collapse"));
   return (
-    <div className="relative">
+    <div
+      className={classNames("relative rounded-xl", {
+        "max-h-60 overflow-hidden": collapsed,
+      })}
+    >
+      {collapsed && (
+        <>
+          <div className="absolute w-full h-44 bottom-0 overflow-hidden bg-gradient-to-b from-[rgb(255,255,255,0)] to-white z-10 rounded-xl opacity-80"></div>
+          <div
+            className="absolute w-full h-full flex justify-center items-end z-20 cursor-pointer"
+            onClick={() => setCollapse(false)}
+          >
+            <p className="!text-sm !font-semibold">Click to expand</p>
+          </div>
+        </>
+      )}
       {copy && (
         <div
           className="absolute flex items-center justify-center top-4 right-5 z-10 cursor-pointer !p-2 border rounded-xl border-[#afaeab]"
@@ -45,7 +67,12 @@ export default function Fence({ children, language, copy = false }) {
         theme={undefined}
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className} style={style}>
+          <pre
+            className={classNames(className, {
+              "max-h-96 overflow-y-auto": Boolean(mode === "scroll"),
+            })}
+            style={style}
+          >
             {tokens.slice(0, -1).map((line, i) => (
               <div {...getLineProps({ line, key: i })}>
                 {line.map((token, key) => (

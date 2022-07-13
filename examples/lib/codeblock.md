@@ -1,4 +1,4 @@
-```hoon {% copy=true %}
+```hoon {% copy=true mode="collapse" %}
 :-  %say
 |=  *
 :-  %noun

@@ -52,7 +52,7 @@ Our Markdown parser is a custom patched installation of Markdoc for additional f
 Import the component:
 
 ```js
-import Markdown from 'foundation-design-system/markdown'; 
+import Markdown from 'foundation-design-system'; 
 ```
 
 Then, on the server-side parse your content by passing it an object in the following shape:

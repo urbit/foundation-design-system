@@ -10,5 +10,10 @@ export const fence = {
       type: Boolean,
       description: "Adds a copy button.",
     },
+    mode: {
+      type: String,
+      description:
+        "Sets modes for code blocks. Specify either 'collapse' or 'scroll'.",
+    },
   },
 };

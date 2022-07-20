@@ -17,10 +17,15 @@ export default function Fence({
   const [collapsed, setCollapse] = React.useState(Boolean(mode === "collapse"));
   return (
     <div
-      className={classNames("relative rounded-xl z-0 cursor-pointer", {
+      className={classNames("relative rounded-xl z-0", {
         "max-h-60 overflow-hidden": collapsed,
+        "cursor-pointer": Boolean(mode === "collapse"),
       })}
-      onClick={() => setCollapse(!collapsed)}
+      onClick={() => {
+        if (Boolean(mode === "collapse")) {
+          return setCollapse(!collapsed);
+        }
+      }}
     >
       {collapsed && (
         <>

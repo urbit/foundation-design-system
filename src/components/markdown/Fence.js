@@ -17,24 +17,22 @@ export default function Fence({
   const [collapsed, setCollapse] = React.useState(Boolean(mode === "collapse"));
   return (
     <div
-      className={classNames("relative rounded-xl", {
+      className={classNames("relative rounded-xl z-0 cursor-pointer", {
         "max-h-60 overflow-hidden": collapsed,
       })}
+      onClick={() => setCollapse(!collapsed)}
     >
       {collapsed && (
         <>
           <div className="absolute w-full h-44 bottom-0 overflow-hidden bg-gradient-to-b from-[rgb(255,255,255,0)] to-white z-10 rounded-xl opacity-80"></div>
-          <div
-            className="absolute w-full h-full flex justify-center items-end z-20 cursor-pointer"
-            onClick={() => setCollapse(false)}
-          >
+          <div className="absolute w-full h-full flex justify-center items-end z-20">
             <p className="!text-sm !font-semibold">Click to expand</p>
           </div>
         </>
       )}
       {copy && (
         <div
-          className="absolute flex items-center justify-center top-4 right-5 z-10 cursor-pointer !p-2 border rounded-xl border-[#afaeab]"
+          className="absolute flex items-center justify-center top-3 right-3 z-10 cursor-pointer !p-1 border rounded-lg border-[#afaeab]"
           onClick={useCopy}
         >
           <p>
@@ -42,8 +40,8 @@ export default function Fence({
               <Copy />
             ) : (
               <svg
-                width="21"
-                height="21"
+                width="16"
+                height="16"
                 viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +66,7 @@ export default function Fence({
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre
-            className={classNames(className, {
+            className={classNames(className, "!py-4", {
               "max-h-96 overflow-y-auto": Boolean(mode === "scroll"),
             })}
             style={style}

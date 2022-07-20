@@ -20,3 +20,9 @@
   --
 --
 ```
+
+space space
+
+```hoon {% copy=true %}
+:-  %say
+```

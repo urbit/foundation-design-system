@@ -44,6 +44,21 @@ export default function Home() {
                 </li>
               ))}
           </div>
+          <div>
+            <h3>UI</h3>
+            {process.env.ui
+              .map((item) => ({
+                ...item,
+                link: `/components/ui/${item.link}`,
+              }))
+              .map((item) => (
+                <li key={item.link}>
+                  <Link href={item.link} passHref>
+                    <a>{item.name}</a>
+                  </Link>
+                </li>
+              ))}
+          </div>
         </Section>
       </SingleColumn>
     </Container>

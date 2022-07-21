@@ -19,18 +19,15 @@ export default function Fence({
     <div
       className={classNames("relative rounded-xl z-0", {
         "max-h-60 overflow-hidden": collapsed,
-        "cursor-pointer": Boolean(mode === "collapse"),
       })}
-      onClick={() => {
-        if (Boolean(mode === "collapse")) {
-          return setCollapse(!collapsed);
-        }
-      }}
     >
       {collapsed && (
         <>
-          <div className="absolute w-full h-44 bottom-0 overflow-hidden bg-gradient-to-b from-[rgb(255,255,255,0)] to-white z-10 rounded-xl opacity-80"></div>
-          <div className="absolute w-full h-full flex justify-center items-end z-20">
+          <div className="absolute w-full h-44 bottom-0 overflow-hidden bg-gradient-to-b from-[rgb(255,255,255,0)] to-white z-10 rounded-xl opacity-80" />
+          <div
+            className="absolute w-full h-full flex justify-center items-end z-20 cursor-pointer"
+            onClick={() => setCollapse(false)}
+          >
             <p className="!text-sm !font-semibold">Click to expand</p>
           </div>
         </>

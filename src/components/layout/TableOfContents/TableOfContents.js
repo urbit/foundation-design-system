@@ -42,7 +42,7 @@ const getNestedHeadings = (headingElements) => {
 const useHeadingsData = (noh3s) => {
   const [nestedHeadings, setNestedHeadings] = useState([]);
 
-  const query = noh3s ? "h2" : "h2, h3";
+  const query = noh3s ? ".markdown h2" : ".markdown h2, .markdown h3";
   useEffect(() => {
     const headingElements = Array.from(document.querySelectorAll(query));
 

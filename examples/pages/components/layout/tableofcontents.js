@@ -1,14 +1,17 @@
-import Container from "../../../../src/components/layout/Container";
-import Section from "../../../../src/components/layout/Section";
-import SingleColumn from "../../../../src/components/layout/SingleColumn";
-import TableOfContents from "../../../../src/components/layout/TableOfContents";
+import {
+  Container,
+  Section,
+  SingleColumn,
+  TableOfContents,
+} from "../../../../src/";
+
 export default function TableOfContentsPage() {
   return (
     <Container>
       <SingleColumn>
         <div className="flex max-w-screen-lg">
           <div>
-            <Section className="space-y-4">
+            <Section className="space-y-4 markdown">
               <h2 id="eh">eh</h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

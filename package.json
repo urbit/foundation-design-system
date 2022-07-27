@@ -4,6 +4,7 @@
   "description": "A system of design variables, Markdoc and React components intended for Urbit Foundation projects.",
   "main": "src/index.js",
   "files": [
+    "patches",
     "src",
     "styles",
     "tailwind.config.js"

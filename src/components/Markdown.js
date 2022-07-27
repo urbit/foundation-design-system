@@ -13,6 +13,7 @@ import { html } from "../schema/html.markdoc";
 import { button } from "../schema/button.markdoc";
 import { callout } from "../schema/callout.markdoc";
 import { div } from "../schema/div.markdoc";
+import { iframe } from "../schema/iframe.markdoc";
 import Tabs from "./markdown/Tabs";
 import Tab from "./markdown/Tab";
 import Button from "./markdown/Button";
@@ -36,6 +37,10 @@ const NextLink = ({ href, target, children }) => {
 
 const Div = ({ className, children }) => {
   return <div className={className}>{children}</div>;
+};
+
+const Iframe = ({ className, width, height, src, children }) => {
+  return <iframe width={width} height={height} src={src} />;
 };
 
 export function MarkdownParse({ post }) {
@@ -63,6 +68,7 @@ export function MarkdownParse({ post }) {
       superscript,
       NextLink,
       div,
+      iframe,
     },
   });
 }
@@ -78,6 +84,7 @@ export function MarkdownRender({ content }) {
       RenderHtml,
       NextLink,
       Div,
+      Iframe,
     },
   });
 }

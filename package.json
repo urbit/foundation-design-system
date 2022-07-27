@@ -9,7 +9,7 @@
     "tailwind.config.js"
   ],
   "scripts": {
-    "prepare": "patch-package"
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",

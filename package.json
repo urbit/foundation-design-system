@@ -10,7 +10,7 @@
     "tailwind.config.js"
   ],
   "scripts": {
-    "postinstall": "patch-package"
+    "postinstall": "patch-package @markdoc/markdoc --patch-dir ./node_modules/foundation-design-system/patches"
   },
   "repository": {
     "type": "git",

@@ -72,5 +72,4 @@ module.exports = {
       invert: ["dark"],
     },
   },
-  plugins: [require("@tailwindcss/aspect-ratio")],
 };

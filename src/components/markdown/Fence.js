@@ -3,9 +3,8 @@ import classNames from "classnames";
 import { useCopyToClipboard } from "../../lib/hooks";
 import Copy from "../../lib/icons/copy";
 import Highlight, { defaultProps } from "prism-react-renderer";
-import Prism from "prism-react-renderer/prism";
-(typeof global !== "undefined" ? global : window).Prism = Prism;
-require("prismjs/components/prism-hoon");
+import Prism from "prismjs";
+import "prismjs/components/prism-hoon";
 
 export default function Fence({
   children,
@@ -65,6 +64,7 @@ export default function Fence({
         language={language}
         code={children}
         theme={undefined}
+        Prism={Prism}
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre

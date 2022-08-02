@@ -19,7 +19,7 @@ export default [
         sourcemap: false,
       },
     ],
-    external: ["next/link", "next/router", "prismjs", "react", "react-dom"],
+    external: ["next/link", "next/router", "react", "react-dom"],
     plugins: [
       resolve(),
       babel({

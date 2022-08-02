@@ -21,9 +21,7 @@ export async function getStaticProps({ params }) {
   const markdown = JSON.stringify(
     Markdown.parse({
       post: {
-        content: fs.readFileSync(
-          path.join(process.cwd(), "./lib/codeblock.md")
-        ),
+        content: fs.readFileSync(path.join(process.cwd(), "./lib/post.md")),
       },
     })
   );

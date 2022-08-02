@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Markdoc, { Ast, Tag } from "@markdoc/markdoc";
+import Markdoc, { Ast, Tag } from "@urbit/markdoc";
 import { heading } from "../schema/heading.markdoc.js";
 import { footnoteRef } from "../schema/footnoteRef.markdoc.js";
 import { footnoteItem } from "../schema/footnoteItem.markdoc.js";

@@ -1,4 +1,4 @@
-import { Ast, Tag } from "@markdoc/markdoc";
+import { Ast, Tag } from "@urbit/markdoc";
 
 export const footnoteItem = {
   attributes: {

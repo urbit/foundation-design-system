@@ -1,4 +1,4 @@
-import { Tag } from "@markdoc/markdoc";
+import { Tag } from "@urbit/markdoc";
 
 export const tab = {
   render: "Tab",

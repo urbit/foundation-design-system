@@ -1,4 +1,4 @@
-import { Tag } from "@markdoc/markdoc";
+import { Tag } from "@urbit/markdoc";
 
 function generateID(children, attributes) {
   if (attributes.id && typeof attributes.id === "string") {

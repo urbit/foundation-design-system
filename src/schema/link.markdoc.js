@@ -1,4 +1,4 @@
-import { Tag } from "@markdoc/markdoc";
+import { Tag } from "@urbit/markdoc";
 
 function checkIfExternal(attributes) {
   const href = attributes.href;

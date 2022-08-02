@@ -35,8 +35,12 @@ const NextLink = ({ href, target, children }) => {
   );
 };
 
-const Div = ({ className, children }) => {
-  return <div className={className}>{children}</div>;
+const Div = ({ className, id = "", title = "", children }) => {
+  return (
+    <div className={className} id={id} title={title}>
+      {children}
+    </div>
+  );
 };
 
 const Iframe = ({ className, width, height, src, children }) => {
@@ -66,7 +70,7 @@ export function MarkdownParse({ post }) {
       callout,
       RenderHtml,
       superscript,
-      NextLink,
+      link,
       div,
       iframe,
     },

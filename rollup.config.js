@@ -21,7 +21,9 @@ export default [
     ],
     external: ["next/link", "next/router", "react", "react-dom"],
     plugins: [
-      resolve(),
+      resolve({
+        dedupe: ["react", "react-dom", "next/link", "next/router"],
+      }),
       babel({
         presets: ["@babel/preset-react"],
       }),

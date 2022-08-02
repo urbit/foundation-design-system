@@ -6,7 +6,7 @@ A system of design variables, Markdoc and React components intended for Urbit Fo
 We build all our sites with [Next.js](https://nextjs.org) and [Tailwind](https://tailwindcss.com) and this package is designed for those scenarios. Presently this is not published as an npm package; it's intended as an internal tool for rapid iteration. Nevertheless it can be installed like any other using the Git repo:
 
 ```bash
-npm i urbit/foundation-design-system next-transpile-modules
+npm i @urbit/foundation-design-system next-transpile-modules
 ```
 
 If it doesn't auto-install peer dependencies, then install them as well:
@@ -18,7 +18,7 @@ npm i @tailwindcss/aspect-ratio autoprefixer postcss tailwindcss next
 Then set up your `next.config.js` file like so:
 
 ```js
-const withTM = require("next-transpile-modules")(["foundation-design-system"]);
+const withTM = require("next-transpile-modules")(["@urbit/foundation-design-system"]);
 module.exports = withTM({ /* ... */ });
 ```
 
@@ -27,9 +27,9 @@ module.exports = withTM({ /* ... */ });
 Our design variables are available by using the Tailwind config in your own installation as a preset, ensuring you style our components as well in the `content` section:
 
 ```js
-presets: [require("foundation-design-system/tailwind")],
+presets: [require("@urbit/foundation-design-system/tailwind")],
 content: [
-  "./node_modules/foundation-design-system/**/*.js",
+  "./node_modules/@urbit/foundation-design-system/**/*.js",
   "./pages/**/*.{js,ts,jsx,tsx}",
   "./components/**/*.{js,ts,jsx,tsx}",
 ],
@@ -52,7 +52,7 @@ Our Markdown parser is a custom patched installation of Markdoc for additional f
 Import the component:
 
 ```js
-import Markdown from 'foundation-design-system'; 
+import Markdown from '@urbit/foundation-design-system'; 
 ```
 
 Then, on the server-side parse your content by passing it an object in the following shape:

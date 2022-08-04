@@ -1,4 +1,4 @@
-# foundation-design-system
+# @urbit/foundation-design-system
 A system of design variables, Markdoc and React components intended for Urbit Foundation projects.
 
 ## Usage
@@ -9,10 +9,10 @@ We build all our sites with [Next.js](https://nextjs.org) and [Tailwind](https:/
 npm i @urbit/foundation-design-system
 ```
 
-If it doesn't auto-install peer dependencies, then install them as well:
+Ensure all peer dependencies are present as well:
 
 ```bash
-npm i @tailwindcss/aspect-ratio autoprefixer postcss prismjs tailwindcss next
+npm i @tailwindcss/aspect-ratio tailwindcss-theme-swapper autoprefixer postcss prismjs tailwindcss next
 ```
 
 ### Tailwind config and other CSS styles
@@ -31,9 +31,9 @@ content: [
 Likewise you can find our CSS styles by importing them at the top of your site build (i.e. `_app.js`):
 
 ```js
-import "foundation-design-system/styles/globals.css";
-import "foundation-design-system/styles/markdown.css";
-import "foundation-design-system/styles/prism.css";
+import "@urbit/foundation-design-system/styles/globals.css";
+import "@urbit/foundation-design-system/styles/markdown.css";
+import "@urbit/foundation-design-system/styles/prism.css";
 ```
 
 ### Markdown parser, renderer, and components

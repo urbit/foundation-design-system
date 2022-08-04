@@ -22,12 +22,20 @@ export default function Fence({
     >
       {collapsed && (
         <>
-          <div className="absolute w-full h-44 bottom-0 overflow-hidden bg-gradient-to-b from-[rgb(255,255,255,0)] to-white z-10 rounded-xl opacity-80" />
+          <div
+            className="absolute w-full h-full bottom-0 overflow-hidden bg-white z-10 rounded-xl"
+            style={{ opacity: "0.5" }}
+          />
           <div
             className="absolute w-full h-full flex justify-center items-end z-20 cursor-pointer"
             onClick={() => setCollapse(false)}
           >
-            <p className="!text-sm !font-semibold">Click to expand</p>
+            <p
+              className="!text-sm !font-semibold"
+              style={{ paddingBottom: "0.25rem" }}
+            >
+              Click to expand
+            </p>
           </div>
         </>
       )}

@@ -93,7 +93,7 @@ const dark = {
     "blue-600": "#F1F9FF",
     // Util
     black: "#FFF",
-    white: "#000",
+    white: "#151518",
     transparent: "rgba(0,0,0,0)",
     // Syntax highlighting
     purple: "rgba(157,82,255,0.8)",

@@ -5,9 +5,19 @@ function generateID(children, attributes) {
     return attributes.id;
   }
 
-  const bottomChildren = children
-    .map((child) => (child.children ? child.children : child))
-    .flat();
+  const getBottom = (parent) =>
+    parent?.children
+      ? getBottom(parent.children)
+      : parent[0]?.children
+      ? getBottom(parent[0].children)
+      : parent;
+
+  const bottomChildren = [
+    children
+      .map((child) => getBottom(child))
+      .flat()
+      .join(""),
+  ];
   return bottomChildren
     .filter((child) => typeof child === "string")
     .join(" ")

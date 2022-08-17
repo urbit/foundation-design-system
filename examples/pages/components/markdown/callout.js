@@ -19,7 +19,7 @@ export async function getStaticProps({ params }) {
   const markdown = JSON.stringify(
     Markdown.parse({
       post: {
-        content: `{% callout %}This is a very important message for you.{% /callout %}`,
+        content: `{% callout className="bg-yellow-200" %}This is a very important message for you.{% /callout %}`,
       },
     })
   );

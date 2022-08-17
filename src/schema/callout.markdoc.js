@@ -4,5 +4,8 @@ export const callout = {
     title: {
       type: String,
     },
+    className: {
+      type: String,
+    },
   },
 };

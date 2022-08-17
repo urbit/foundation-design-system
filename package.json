@@ -1,6 +1,6 @@
 {
   "name": "@urbit/foundation-design-system",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "A system of design variables, Markdoc and React components intended for Urbit Foundation projects.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

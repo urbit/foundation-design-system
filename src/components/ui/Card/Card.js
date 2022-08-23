@@ -25,7 +25,7 @@ export default function IndexCard({
               style={{ aspectRatio: "4 / 3" }}
             />
           )}
-          <div className="grow-1 shrink-0 flex flex-col h-full min-h-0 pt-4">
+          <div className="grow-1 flex flex-col h-full min-h-0 pt-4">
             <h3 className="mb-2">{title}</h3>
             <p className="text-sm">
               {author ? (

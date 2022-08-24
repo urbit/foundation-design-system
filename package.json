@@ -1,6 +1,6 @@
 {
   "name": "@urbit/foundation-design-system",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "description": "A system of design variables, Markdoc and React components intended for Urbit Foundation projects.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -38,8 +38,11 @@
     "tailwindcss-theme-swapper": "^0.6.2"
   },
   "dependencies": {
+    "@iarna/toml": "^2.2.5",
     "core-js": "^3.23.1",
+    "gray-matter": "^4.0.3",
     "html-react-parser": "^1.4.14",
+    "luxon": "^3.0.1",
     "prism-react-renderer": "^1.3.3"
   },
   "devDependencies": {

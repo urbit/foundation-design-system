@@ -10,9 +10,9 @@ export default function Footer({ title = "", data = [[{}], [{}]] }) {
         <Section short className="flex flex-row flex-wrap">
           {data?.[0]?.map((section, i) => {
             return (
-              <>
+              <div key={i}>
                 {i === 0 && <h3 className="mt-12 text-2xl w-full">~</h3>}
-                <div key={i} className="w-1/2 md:w-1/3 flex flex-col shrink">
+                <div className="w-1/2 md:w-1/3 flex flex-col shrink">
                   {section?.title && (
                     <h4 className="mt-10 h-8 font-bold text-base">
                       {section.title}
@@ -28,7 +28,7 @@ export default function Footer({ title = "", data = [[{}], [{}]] }) {
                     );
                   })}
                 </div>
-              </>
+              </div>
             );
           })}
         </Section>

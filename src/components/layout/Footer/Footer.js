@@ -10,7 +10,7 @@ export default function Footer({ title = "", data = [[{}], [{}]] }) {
         <Section short className="flex flex-row flex-wrap">
           {data?.[0]?.map((section, i) => {
             return (
-              <div key={i}>
+              <React.Fragment key={i}>
                 {i === 0 && <h3 className="mt-12 text-2xl w-full">~</h3>}
                 <div className="w-1/2 md:w-1/3 flex flex-col shrink">
                   {section?.title && (
@@ -28,7 +28,7 @@ export default function Footer({ title = "", data = [[{}], [{}]] }) {
                     );
                   })}
                 </div>
-              </div>
+              </React.Fragment>
             );
           })}
         </Section>

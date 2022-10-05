@@ -8,7 +8,7 @@ export default function Math({ block = false, className = "", children }) {
         : exp?.props?.children
             ? exp.props.children
             : exp;
-    const classes = className + (block === true) ? "block text-center" : "";
+    const classes = className + (block === true ? "block text-center" : "");
 
     const [isReady, setIsReady] = React.useState(__MathJax_State__.isReady);
 

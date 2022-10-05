@@ -30,6 +30,7 @@ export default function IntraNav({ search, ourSite = "" }) {
           <div className="flex space-x-4 items-center">
             {sites.map((site) => (
               <a
+                key={site.title}
                 className={classNames("text-xs", {
                   "font-bold": ourSite.includes(site.href),
                 })}

@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import Markdoc, { Ast, Tag } from "@urbit/markdoc";
+import dynamic from "next/dynamic";
+import Markdoc, { Ast } from "@urbit/markdoc";
 import { heading } from "../schema/heading.markdoc.js";
 import { footnoteRef } from "../schema/footnoteRef.markdoc.js";
 import { footnoteItem } from "../schema/footnoteItem.markdoc.js";
 import { link } from "../schema/link.markdoc.js";
+import { math } from "../schema/math.markdoc.js";
 import { image } from "../schema/image.markdoc.js";
 import { sup } from "../schema/superscript.markdoc.js";
 import { fence } from "../schema/fence.markdoc";
@@ -21,6 +23,9 @@ import Callout from "./markdown/Callout";
 import Fence from "./markdown/Fence.js";
 import parse from "html-react-parser";
 
+const Math = dynamic(() => import("./markdown/Math"), {
+  ssr: false
+})
 const RenderHtml = ({ content }) => {
   return parse(content);
 };
@@ -74,6 +79,7 @@ export function MarkdownParse({ post }) {
       link,
       div,
       iframe,
+      math
     },
   });
 }
@@ -90,8 +96,9 @@ export function MarkdownRender({ content }) {
       NextLink,
       Div,
       Iframe,
+      Math
     },
-  });
+  })
 }
 
 const uniqHead = (ast) => {

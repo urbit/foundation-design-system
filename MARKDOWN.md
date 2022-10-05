@@ -43,6 +43,80 @@ In practice it makes a nice table:
 
 ## Our additions
 
+### Math
+
+We use MathJax to render equations when creating technical documentation. Before using this component, note that the Next.js build will have to accomodate its quirks.
+
+Create a `_document.js` file and add its scripts:
+
+```js
+import { Html, Head, Main, NextScript } from 'next/document'
+import Script from 'next/script';
+
+export default function Document() {
+  return (
+    <Html>
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+        <Script strategy="beforeInteractive" dangerouslySetInnerHTML={{
+          __html: `window.__MathJax_State__ = {
+          isReady: false,
+          promise: new Promise(resolve => {
+
+            window.MathJax = {
+              loader: {load: ['[tex]/autoload', '[tex]/ams']},
+              tex: {
+                packages: {'[+]': ['autoload', 'ams']},
+                processEscapes: true
+              },
+              jax: ["input/TeX","output/CommonHTML"],
+              options: {
+                renderActions: {
+                  addMenu: []
+                }
+              },
+              startup: {
+                typeset: false,
+                ready: () => {
+                  MathJax.startup.defaultReady();
+                  window.__MathJax_State__.isReady = true;
+                  resolve();
+                }
+              }
+            };
+          })
+        };`}}
+        />
+        <Script strategy="beforeInteractive" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" />
+      </body>
+    </Html>
+  )
+}
+```
+
+Ensure your calls to Markdown use `String.raw()` so that you preserve backslashes, like this:
+
+```js
+const markdown = JSON.stringify(Markdown.parse({ post: { content: String.raw`${content}` } }));
+```
+
+Once both of these are in place, you can use the `{% math %}` block, setting it to `block=true` or `block=false` as necessary (for displayed math vs. inline math, respectively).
+
+```
+[Piecewise mathematical functions](https://en.wikipedia.org/wiki/Piecewise) require precisely this functionality.  For instance, the Heaviside function is a piecewise mathematical function which is equal to zero for inputs less than zero and one for inputs greater than or equal to zero.
+
+{% math block=true %}
+H(x)
+=
+\begin{cases} 1, & x > 0 \\\ 0, & x \le 0 \end{cases}
+{% /math %}
+```
+
+![](https://media.urbit.org/foundation/design/math.png)
+
+
 ### Fences
 
 Using code blocks like normal work as you expect. However, we also have the following:

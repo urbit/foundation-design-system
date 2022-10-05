@@ -9,12 +9,12 @@ export default [
     input: "src/index.js",
     output: [
       {
-        file: packageJson.main,
+        dir: packageJson.main.slice(0, -8),
         format: "cjs",
         sourcemap: false,
       },
       {
-        file: packageJson.module,
+        dir: packageJson.module.slice(0, -8),
         format: "esm",
         sourcemap: false,
       },

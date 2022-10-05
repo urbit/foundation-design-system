@@ -51,7 +51,8 @@ export function MarkdownParse({ post }) {
   const tokeniser = new Markdoc.Tokenizer({ html: true, linkify: true });
   const tokens = tokeniser.tokenize(post.content);
   const ast = Markdoc.parse(tokens);
-  const finalAst = footnoteParse(ast);
+  const footnotedAst = footnoteParse(ast);
+  const finalAst = uniqHead(footnotedAst);
   return Markdoc.transform(finalAst, {
     nodes: {
       fence,
@@ -91,6 +92,52 @@ export function MarkdownRender({ content }) {
       Iframe,
     },
   });
+}
+
+const uniqHead = (ast) => {
+  const uniqueHeadings = new Map([]);
+  function generateID(children, attributes) {
+    if (attributes.id && typeof attributes.id === "string") {
+      return attributes.id;
+    }
+
+    const getBottom = (children) => {
+      if (children?.attributes?.content) {
+        if (uniqueHeadings.has(children.attributes.content)) {
+          uniqueHeadings.set(children.attributes.content, uniqueHeadings.get(children.attributes.content) + 1);
+          return `${children.attributes.content}-${uniqueHeadings.get(children.attributes.content)}`;
+        } else {
+          uniqueHeadings.set(children.attributes.content, 0);
+          return children.attributes.content;
+        }
+      } else if (children[0]?.children) {
+        return children[0]?.children.flatMap(child => getBottom(child))
+      } else if (children?.children) {
+        return children.children.flatMap(child => getBottom(child));
+      } else {
+        return children
+      }
+    }
+
+    return getBottom(children)
+      .join("")
+      .replace(/[=?!><:;,+#^|$&~"*@\.%/]/g, "")
+      .replace(/\s+/g, "-")
+      .toLowerCase();
+  }
+
+  let newAst = ast;
+  newAst.children = ast.children.map((e) => {
+    if (e.type === "heading") {
+      return new Ast.Node(e.type, {
+        ...e.attributes,
+        id: generateID(e.children, e.attributes)
+      }, e.children)
+    } else {
+      return e
+    }
+  });
+  return newAst;
 }
 
 const footnoteParse = (partialAst) => {

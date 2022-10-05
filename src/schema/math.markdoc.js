@@ -4,5 +4,8 @@ export const math = {
         block: {
             type: Boolean,
         },
+        className: {
+            type: String
+        }
     },
 };

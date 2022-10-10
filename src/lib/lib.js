@@ -26,11 +26,19 @@ const directories = (dir) => {
   }
 };
 
-export const getPage = (path) => {
+export const getPage = (path, lastModified = false) => {
   try {
     let fileContents = fs.readFileSync(`${path}.md`, "utf8");
     if (fileContents) {
       const { data, content } = matter(fileContents, options);
+      if (lastModified) {
+        try {
+          const stats = fs.statSync(`${path}.md`);
+          data['lastModified'] = stats.mtime.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        } catch (error) {
+          console.error(error);
+        }
+      }
       return { data, content };
     }
   } catch {

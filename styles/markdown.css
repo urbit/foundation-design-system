@@ -162,6 +162,7 @@
 }
 
 .markdown table {
+  @apply table-fixed w-full;
   border-collapse: separate;
   border-spacing: 0;
   min-width: 350px;
@@ -174,6 +175,7 @@
   border-bottom-width: 2px;
   border-bottom-style: solid;
   padding: 8px !important;
+  overflow-wrap: break-word;
   @apply border-wall-100;
 }
 

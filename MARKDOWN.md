@@ -43,6 +43,21 @@ In practice it makes a nice table:
 
 ## Our additions
 
+### Glossary entries
+
+To add a page's contents as a glossary entry in the intra-site search, add TOML to the top:
+
+```toml
+[glossaryEntry.kettis]
+name = "kettis"
+symbol = "^="
+usage = "Casts"
+slug = "#-kettis"
+desc = "<code>[%ktts p=skin q=hoon]</code>: Bind name to a value."
+```
+
+In this case, `[glossaryEntry."Title of glossary entry"]` is the title, as is `name`, `symbol` is applicable for commands or runes, `usage` is an optional category for results, `slug` corresponds to the header ID on the page for the entry, and the `desc` is the one-line description for the result.
+
 ### Math
 
 We use MathJax to render equations when creating technical documentation. Before using this component, note that the Next.js build will have to accomodate its quirks.

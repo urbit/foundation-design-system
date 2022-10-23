@@ -41,8 +41,8 @@ const base = {
     midWhite: "rgba(255,255,255, 0.8)",
   },
   fontFamily: {
-    sans: ["Inter", "-apple-system", "sans-serif"],
-    mono: ["Source Code Pro", "monospace"],
+    sans: "Inter",
+    mono: "Source Code Pro",
   },
   extend: {
     fontSize: {

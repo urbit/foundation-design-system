@@ -14,6 +14,7 @@ body {
   margin: 0;
   /* Make all text wall-600 by default */
   @apply text-wall-600;
+  font-family: "Inter", sans-serif;
 }
 
 /* Reset a tags */
@@ -83,7 +84,8 @@ p,
 }
 
 code .type-code {
-  @apply bg-wall-100 p-4 font-mono;
+  @apply bg-wall-100 p-4;
+  font-family: "Source Code Pro", monospace;
 }
 
 .font-bold {

@@ -22,6 +22,7 @@ export default function IntraNav({ search, ourSite = "" }) {
     { title: "Urbit.org", href: "https://urbit.org" },
     { title: "Operators", href: "https://operators.urbit.org" },
     { title: "Developers", href: "https://developers.urbit.org" },
+    { title: "Roadmap", href: "https://roadmap.urbit.org" },
   ];
   return (
     <div className="bg-wall-100 w-full">

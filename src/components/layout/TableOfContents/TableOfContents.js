@@ -13,7 +13,7 @@ export const TableOfContents = ({ staticPosition, noh3s }) => {
       }
       style={{ top: "8rem", height: "calc(100vh - 16rem)" }}
     >
-      <div className="relative after:fixed after:bg-gradient-to-t after:from-white after:via-white after:bottom-0 after:w-52 after:h-60 after:pointer-events-none">
+      <div className="relative after:fixed after:bg-gradient-to-t after:from-white after:via-white after:bottom-0 after:w-52 after:h-60 after:pointer-events-none leading-none">
         <Headings headings={nestedHeadings} activeId={activeId} />
       </div>
     </nav>
@@ -55,16 +55,14 @@ const useHeadingsData = (noh3s) => {
 
 const Headings = ({ headings, activeId }) => (
   <ul
-    className={classNames({
+    className={classNames("space-y-2", {
       hidden: headings.length === 1 && headings?.[0]?.items?.length === 0,
     })}
   >
     {headings.map((heading, index) => (
       <li key={heading.id}>
         <a
-          className={classNames({
-            "font-bold": index === 0,
-            "font-medium text-sm": index !== 0,
+          className={classNames("font-medium text-sm", {
             "text-green-400": heading.id === activeId && index !== 0,
           })}
           href={`#${heading.id}`}

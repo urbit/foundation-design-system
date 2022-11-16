@@ -11,7 +11,7 @@ export default function Footer({ title = "", data = [[{}], [{}]] }) {
           {data?.[0]?.map((section, i) => {
             return (
               <React.Fragment key={i}>
-                {i === 0 && <h3 className="mt-12 text-2xl w-full">~</h3>}
+                {i === 0 && <p className="mt-12 text-2xl font-semibold w-full">~</p>}
                 <div className="w-1/2 md:w-1/3 flex flex-col shrink">
                   {section?.title && (
                     <h4 className="mt-10 h-8 font-bold text-base">

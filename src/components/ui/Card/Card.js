@@ -8,6 +8,7 @@ export default function IndexCard({
   author,
   ship,
   content,
+  id = ""
 }) {
   return (
     <Link href={slug}>
@@ -26,7 +27,7 @@ export default function IndexCard({
             />
           )}
           <div className="grow-1 flex flex-col h-full min-h-0 pt-4">
-            <h3 className="mb-2">{title}</h3>
+            <h3 className="mb-2" id={id ? id : title}>{title}</h3>
             <p className="text-sm">
               {author ? (
                 <span className="type-sub-bold mr-2">{author}</span>

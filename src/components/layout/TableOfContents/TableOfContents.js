@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames";
 
-export const TableOfContents = ({ staticPosition, noh3s }) => {
-  const { nestedHeadings } = useHeadingsData(noh3s);
+export const TableOfContents = ({ staticPosition, noh3s, markdown = true }) => {
+  const { nestedHeadings } = useHeadingsData(noh3s, markdown);
   const [activeId, setActiveId] = useState();
   useIntersectionObserver(setActiveId);
   return (
@@ -39,10 +39,12 @@ const getNestedHeadings = (headingElements) => {
   return nestedHeadings;
 };
 
-const useHeadingsData = (noh3s) => {
+const useHeadingsData = (noh3s, markdown) => {
   const [nestedHeadings, setNestedHeadings] = useState([]);
 
-  const query = noh3s ? ".markdown h2" : ".markdown h2, .markdown h3";
+  const md = markdown ? '.markdown' : ''
+  const query = noh3s ? `${md} h2` : `${md} h2, ${md} h3`;
+
   useEffect(() => {
     const headingElements = Array.from(document.querySelectorAll(query));
 

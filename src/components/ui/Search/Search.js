@@ -1,3 +1,4 @@
+// Due for a rewrite, lots of repeating code
 import React from "react";
 import { Component } from "react";
 import { withRouter } from "next/router";
@@ -5,6 +6,7 @@ import debounce from "lodash.debounce";
 import Downshift from "downshift";
 import ob from "urbit-ob";
 import Sigil from "../Sigil/Sigil";
+import cn from 'classnames';
 
 class Search extends Component {
     constructor(props) {
@@ -163,6 +165,7 @@ class Search extends Component {
 
     render() {
         const { state, props } = this;
+        const ourSite = props?.ourSite || "https://urbit.org";
 
         if (props.showSearch) {
             return (
@@ -279,6 +282,9 @@ class Search extends Component {
                                             }
                                             if (item.type === "URBIT_ORG_RESULT") {
                                                 const orgItem = Object.assign({}, item.content);
+                                                const prelude = "https://urbit.org" === ourSite
+                                                    ? ""
+                                                    : "urbit.org / "
                                                 orgItem[
                                                     "slug"
                                                 ] = `https://urbit.org${item.content.slug}`;
@@ -298,9 +304,11 @@ class Search extends Component {
                                                                 className={`font-medium text-base ${selected ? "text-white" : "text-wall-600"
                                                                     }`}
                                                             >
-                                                                {item.content.parent !== "Content"
-                                                                    ? `${item.content.parent} /`
-                                                                    : ""}{" "}
+                                                                <span className={cn({ "text-wall-400": ourSite !== "https://urbit.org" })}>
+                                                                    {item.content.parent !== "Content"
+                                                                        ? `${prelude}${item.content.parent} / `
+                                                                        : prelude + " "}
+                                                                </span>
                                                                 {item.content.title}
                                                             </p>
                                                             <p
@@ -323,6 +331,9 @@ class Search extends Component {
                                                 devItem[
                                                     "slug"
                                                 ] = `https://developers.urbit.org${item.content.slug}`;
+                                                const prelude = "https://developers.urbit.org" === ourSite
+                                                    ? ""
+                                                    : "developers.urbit.org / ";
                                                 return (
                                                     <li
                                                         className={`cursor-pointer flex text-left w-full ${selected ? "bg-green-400" : ""
@@ -339,10 +350,10 @@ class Search extends Component {
                                                                 className={`font-medium text-base ${selected ? "text-white" : "text-wall-600"
                                                                     }`}
                                                             >
-                                                                <span className="text-wall-400">
+                                                                <span className={cn({ "text-wall-400": ourSite !== "https://developers.urbit.org" })}>
                                                                     {item.content.parent !== "Content"
-                                                                        ? `developers.urbit.org / ${item.content.parent} /`
-                                                                        : "developers.urbit.org /"}{" "}
+                                                                        ? `${prelude}${item.content.parent} / `
+                                                                        : prelude + " "}
                                                                 </span>
                                                                 {item.content.title}
                                                             </p>
@@ -366,6 +377,9 @@ class Search extends Component {
                                                 opsItem[
                                                     "slug"
                                                 ] = `https://operators.urbit.org${item.content.slug}`;
+                                                const prelude = "https://operators.urbit.org" === ourSite
+                                                    ? ""
+                                                    : "operators.urbit.org / ";
                                                 return (
                                                     <li
                                                         className={`cursor-pointer flex text-left w-full ${selected ? "bg-green-400" : ""
@@ -382,10 +396,10 @@ class Search extends Component {
                                                                 className={`font-medium text-base ${selected ? "text-white" : "text-wall-600"
                                                                     }`}
                                                             >
-                                                                <span className="text-wall-400">
+                                                                <span className={cn({ "text-wall-400": ourSite !== "https://operators.urbit.org" })}>
                                                                     {item.content.parent !== "Content"
-                                                                        ? `operators.urbit.org / ${item.content.parent} /`
-                                                                        : "operators.urbit.org /"}{" "}
+                                                                        ? `${prelude}${item.content.parent} / `
+                                                                        : prelude + " "}
                                                                 </span>
                                                                 {item.content.title}
                                                             </p>
@@ -409,6 +423,9 @@ class Search extends Component {
                                                 roadmapItem[
                                                     "slug"
                                                 ] = `https://roadmap.urbit.org${item.content.slug}`;
+                                                const prelude = "https://roadmap.urbit.org" === ourSite
+                                                    ? ""
+                                                    : "roadmap.urbit.org / ";
                                                 return (
                                                     <li
                                                         className={`cursor-pointer flex text-left w-full ${selected ? "bg-green-400" : ""
@@ -425,10 +442,10 @@ class Search extends Component {
                                                                 className={`font-medium text-base ${selected ? "text-white" : "text-wall-600"
                                                                     }`}
                                                             >
-                                                                <span className="text-wall-400">
+                                                                <span className={cn({ "text-wall-400": ourSite !== "https://roadmap.urbit.org" })}>
                                                                     {item.content.parent !== "Content"
-                                                                        ? `roadmap.urbit.org / ${item.content.parent} /`
-                                                                        : "roadmap.urbit.org /"}{" "}
+                                                                        ? `${prelude}${item.content.parent} / `
+                                                                        : prelude + " "}
                                                                 </span>
                                                                 {item.content.title}
                                                             </p>

@@ -46,6 +46,14 @@ export const getPage = (path, lastModified = false) => {
       let fileContents = fs.readFileSync(`${path}/_index.md`, "utf8");
       if (fileContents) {
         const { data, content } = matter(fileContents, options);
+        if (lastModified) {
+          try {
+            const stats = fs.statSync(`${path}/_index.md`);
+            data['lastModified'] = stats.mtime.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+          } catch (error) {
+            console.error(error);
+          }
+        }
         return { data, content };
       }
     } catch {

@@ -29,6 +29,11 @@ const base = {
     "blue-400": "#219DFF", // Primary
     "blue-500": "#193C90",
     "blue-600": "#070821",
+    "purple-100": "#eee6f6",
+    "purple-200": "#decded",
+    "purple-300": "#cdb3e4",
+    "purple-400": "#bd9adb",
+    "purple-500": "#AC81D2",
     // Util
     black: "#000",
     white: "#FFF",
@@ -91,6 +96,11 @@ const dark = {
     "blue-400": "#7ED8FF", // Primary
     "blue-500": "#BAE9FF",
     "blue-600": "#F1F9FF",
+    "purple-100": "#AC81D2",
+    "purple-200": "#bd9adb",
+    "purple-300": "#cdb3e4",
+    "purple-400": "#decded",
+    "purple-500": "#eee6f6",
     // Util
     black: "#FFF",
     white: "#151518",

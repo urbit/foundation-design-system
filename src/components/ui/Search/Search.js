@@ -1,78 +1,65 @@
-// Due for a rewrite, lots of repeating code
 import React from "react";
-import { Component } from "react";
-import { withRouter } from "next/router";
-import debounce from "lodash.debounce";
+import { useRouter } from "next/router";
+import debounce from 'lodash.debounce';
 import Downshift from "downshift";
-import ob from "urbit-ob";
-import Sigil from "../Sigil/Sigil";
+import ob from 'urbit-ob';
+import Sigil from '../Sigil/Sigil';
 import cn from 'classnames';
 
-class Search extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            results: [],
-        };
-        this.onInputValueChange = this.onInputValueChange.bind(this);
-        this.onSelect = this.onSelect.bind(this);
-        this.patpSearch = this.patpSearch.bind(this);
-        this.urbitOrgSearch = this.urbitOrgSearch.bind(this);
-        this.devSearch = this.devSearch.bind(this);
-        this.opsSearch = this.opsSearch.bind(this);
-        this.roadmapSearch = this.roadmapSearch.bind(this);
-    }
+function devSearch(query) {
+    return `/api/dev-search?q=${encodeURIComponent(query)}`;
+}
 
-    devSearch(query) {
-        return `/api/dev-search?q=${encodeURIComponent(query)}`;
-    }
+function urbitOrgSearch(query) {
+    return `/api/urbit-org-search?q=${encodeURIComponent(query)}`;
+}
 
-    urbitOrgSearch(query) {
-        return `/api/urbit-org-search?q=${encodeURIComponent(query)}`;
-    }
+function roadmapSearch(query) {
+    return `/api/roadmap-search?q=${encodeURIComponent(query)}`;
+}
 
-    roadmapSearch(query) {
-        return `/api/roadmap-search?q=${encodeURIComponent(query)}`;
-    }
+function opsSearch(query) {
+    return `/api/ops-search?q=${encodeURIComponent(query)}`;
+}
 
-    opsSearch(query) {
-        return `/api/ops-search?q=${encodeURIComponent(query)}`;
-    }
+function patpSearch(query) {
+    return (
+        (ob.isValidPatp(`~${deSig(query.toLowerCase())}`) &&
+            `~${deSig(query.toLowerCase())}`.length < 15) ||
+        (!isNaN(query) && query <= 4294967295)
+    );
+}
 
-    patpSearch(query) {
-        return (
-            (ob.isValidPatp(`~${deSig(query.toLowerCase())}`) &&
-                `~${deSig(query.toLowerCase())}`.length < 15) ||
-            (!isNaN(query) && query <= 4294967295)
-        );
-    }
+function deSig(string) {
+    return string.startsWith("~") ? string.substring(1) : string;
+}
 
-    onSelect(item) {
-        this.setState({
-            query: "",
-            results: [],
-        });
+const Search = ({
+    showSearch,
+    closeSearch,
+    order = ["org", "dev", "ops", "roadmap"],
+    ourSite = "https://urbit.org"
+}) => {
+    const [results, setResults] = React.useState([]);
+    const router = useRouter();
 
+    function onSelect(item) {
+        setResults([]);
         if (item.url) {
-            this.props.router.push(`${item.url}${item?.slug ? item.slug : ""}`);
-            return this.props.closeSearch();
-        }
-        if (item.slug) {
-            this.props.router.push(item.slug);
-            return this.props.closeSearch();
+            router.push(item.url);
+            return closeSearch();
         }
     }
 
-    onInputValueChange = debounce(async (query) => {
-        if (query.length) {
-
-            const patp = this.patpSearch(query)
+    const onInputValueChange = debounce(async (query) => {
+        if (query?.length) {
+            const patp = patpSearch(query)
                 ? !isNaN(query)
                     ? ob.patp(query)
                     : ob.patp(ob.patp2dec(`~${deSig(query)}`))
                 : null;
 
-            const patpResult = this.patpSearch(query)
+            const patpResult = patpSearch(query)
                 ? [
                     {
                         type: "PATP",
@@ -84,58 +71,29 @@ class Search extends Component {
                 ]
                 : [];
 
-            const urbitOrgSearch = fetch(this.urbitOrgSearch(query))
-                .then((res) => res.json())
+            const siteFetch = (search, source, query) => fetch(search(query)).
+                then((res) => res.json())
                 .then((res) => {
                     return [...res.glossary.map((item) => ({
-                        type: "GLOSSARY_RESULT",
-                        content: item
-                    })), ...res.results.map((item) => ({
-                        type: "URBIT_ORG_RESULT",
+                        type: "GLOSSARY",
                         content: item,
+                        source
+                    })), ...res.results.map((item) => ({
+                        type: "RESULT",
+                        content: item,
+                        source,
+                        url: source + "/" + item.slug
                     }))];
                 });
 
-            const devSearch = fetch(this.devSearch(query))
-                .then((res) => res.json())
-                .then((res) => {
-                    return [...res.glossary.map((item) => ({
-                        type: "GLOSSARY_RESULT",
-                        content: item
-                    })), ...res.results.map((item) => ({
-                        type: "DEV_RESULT",
-                        content: item,
-                    }))];
-                });
-
-            const opsSearch = fetch(this.opsSearch(query))
-                .then((res) => res.json())
-                .then((res) => {
-                    return [...res.glossary.map((item) => ({
-                        type: "GLOSSARY_RESULT",
-                        content: item
-                    })), ...res.results.map((item) => ({
-                        type: "OPS_RESULT",
-                        content: item,
-                    }))];
-                });
-
-            const roadmapSearch = fetch(this.roadmapSearch(query))
-                .then((res) => res.json())
-                .then((res) => {
-                    return [...res.glossary.map((item) => ({
-                        type: "GLOSSARY_RESULT",
-                        content: item
-                    })), ...res.results.map((item) => ({
-                        type: "ROADMAP_RESULT",
-                        content: item,
-                    }))];
-                });
+            const urbFetch = siteFetch(urbitOrgSearch, "https://urbit.org", query);
+            const devFetch = siteFetch(devSearch, "https://developers.urbit.org", query);
+            const opsFetch = siteFetch(opsSearch, "https://operators.urbit.org", query);
+            const roadmapFetch = siteFetch(roadmapSearch, "https://roadmap.urbit.org", query);
 
             const [urbitOrgResults, devResults, opsResults, roadmapResults] =
-                await Promise.all([urbitOrgSearch, devSearch, opsSearch, roadmapSearch]);
+                await Promise.all([urbFetch, devFetch, opsFetch, roadmapFetch]);
 
-            const order = this.props?.order ? this.props.order : ["org", "dev", "ops", "roadmap"];
             const list = [
                 ...patpResult,
                 ...order.map((entry) => {
@@ -152,335 +110,177 @@ class Search extends Component {
                 })
             ].flat()
                 .sort((a, b) => {
-                    const aNum = a?.type === "GLOSSARY_RESULT" ? 1 : -1;
-                    const bNum = b?.type === "GLOSSARY_RESULT" ? 1 : -1;
+                    const aNum = a?.type === "GLOSSARY" ? 1 : -1;
+                    const bNum = b?.type === "GLOSSARY" ? 1 : -1;
                     return bNum - aNum;
                 });;
-
-            this.setState({ results: list });
+            console.log(results);
+            setResults(list)
         } else {
-            this.setState({ results: [] });
+            setResults([]);
         }
     }, 250);
 
-    render() {
-        const { state, props } = this;
-        const ourSite = props?.ourSite || "https://urbit.org";
-
-        if (props.showSearch) {
-            return (
-                <Downshift
-                    onSelect={(selection) => this.onSelect(selection)}
-                    onInputValueChange={(event) => this.onInputValueChange(event)}
-                    itemToString={(item) => (item ? item.slug : "")}
-                    defaultHighlightedIndex={0}
-                >
-                    {({
-                        getInputProps,
-                        getItemProps,
-                        getLabelProps,
-                        getMenuProps,
-                        isOpen,
-                        inputValue,
-                        highlightedIndex,
-                        selectedItem,
-                        getRootProps,
-                    }) => (
-                        <div className="fixed w-screen h-screen z-50 flex flex-col items-center p-4">
-                            <div
-                                onClick={(event) => props.closeSearch(event)}
-                                className="top-0 left-0 fixed w-screen h-screen bg-washedWall"
+    return showSearch
+        ? <Downshift
+            onSelect={(sel) => onSelect(sel)}
+            onInputValueChange={(evt) => onInputValueChange(evt)}
+            itemToString={(item) => (item ? item.slug : "")}
+            defaultHighlightedIndex={0}
+        >
+            {({
+                getInputProps,
+                getItemProps,
+                getMenuProps,
+                isOpen,
+                highlightedIndex,
+                getRootProps
+            }) => (
+                <div className="fixed w-screen h-screen z-50 flex flex-col items-center p-4">
+                    <div
+                        onClick={(event) => closeSearch(event)}
+                        className="top-0 left-0 fixed w-screen h-screen bg-washedWall"
+                    />
+                    <div className="relative flex flex-col max-w-screen-lg md:my-32 w-full md:w-10/12 lg:w-8/12 xl:w-6/12 rounded-xl bg-white min-h-0 overflow-hidden">
+                        <div
+                            className="inline-block"
+                            {...getRootProps({}, { suppressRefError: true })}
+                        >
+                            <input
+                                autoFocus
+                                className="text-lg md:text-xl lg:text-2xl font-medium text-green-400 bg-transparent py-2 px-4 outline-none relative w-full"
+                                placeholder="Search..."
+                                type="text"
+                                onClick={(e) => e.stopPropagation()}
+                                {...getInputProps({
+                                    onKeyDown: (event) => {
+                                        if (event.key === "Escape") {
+                                            // Prevent Downshift's default 'Escape' behavior.
+                                            event.nativeEvent.preventDownshiftDefault = true;
+                                            closeSearch(event);
+                                        }
+                                    },
+                                })}
                             />
-                            <div className="relative flex flex-col max-w-screen-lg md:my-32 w-full md:w-10/12 lg:w-8/12 xl:w-6/12 rounded-xl bg-white min-h-0 overflow-hidden">
-                                <div
-                                    style={{ display: "inline-block" }}
-                                    {...getRootProps({}, { suppressRefError: true })}
-                                >
-                                    <input
-                                        autoFocus
-                                        className="text-lg md:text-xl lg:text-2xl font-medium text-green-400 bg-transparent py-2 px-4 outline-none relative w-full"
-                                        placeholder="Search..."
-                                        type="text"
-                                        onClick={(e) => e.stopPropagation()}
-                                        {...getInputProps({
-                                            onKeyDown: (event) => {
-                                                if (event.key === "Escape") {
-                                                    // Prevent Downshift's default 'Escape' behavior.
-                                                    event.nativeEvent.preventDownshiftDefault = true;
-                                                    this.props.closeSearch(event);
-                                                }
-                                            },
-                                        })}
-                                    />
-                                </div>
-                                <ul {...getMenuProps()} className="overflow-y-scroll">
-                                    {isOpen
-                                        ? state.results.map((item, index) => {
-                                            const selected = highlightedIndex === index;
-                                            if (item.type === "PATP") {
-                                                return (
-                                                    <li
-                                                        className={`cursor-pointer p-2 flex space-x-2 items-center text-left w-full ${selected ? "bg-green-400" : ""
-                                                            }`}
-                                                        {...getItemProps({
-                                                            key: item.content.slug + "-" + index,
-                                                            index,
-                                                            item: item.content,
-                                                            selected: highlightedIndex === index,
-                                                        })}
-                                                    >
-                                                        <div className="rounded-md overflow-hidden">
-                                                            <Sigil
-                                                                patp={item.content.patp}
-                                                                size={25}
-                                                                icon
-                                                            />
-                                                        </div>
-                                                        <p className="font-mono">{item.content.patp}</p>
-                                                    </li>
-                                                );
-                                            }
-                                            if (item.type === "GLOSSARY_RESULT") {
-                                                return (
-                                                    <li
-                                                        className={`cursor-pointer flex text-left w-full ${selected ? "bg-green-400" : ""
-                                                            }`}
-                                                        {...getItemProps({
-                                                            key: item.content.slug + "-" + index,
-                                                            index,
-                                                            item: item.content,
-                                                            selected: highlightedIndex === index,
-                                                        })}
-                                                    >
-                                                        <div className="font-semibold p-3">
-                                                            <p
-                                                                className={`text-base ${selected ? "text-white" : "text-wall-600"
-                                                                    }`}
-                                                            >
-                                                                {item.content.symbol.length > 0 && (
-                                                                    <code
-                                                                        className={`mr-1 rounded px-1 py-0.5 ${selected
-                                                                            ? "bg-washedWhite"
-                                                                            : "bg-wall-100"
-                                                                            }`}
-                                                                    >
-                                                                        {item.content.symbol}
-                                                                    </code>
-                                                                )}
-                                                                {item.content.name}
-                                                            </p>
-                                                            <p
-                                                                className={`font-normal text-base mt-1 ${selected ? "text-white" : "text-wall-600"
-                                                                    }`}
-                                                                dangerouslySetInnerHTML={{
-                                                                    __html: item.content.desc,
-                                                                }}
-                                                            ></p>
-                                                        </div>
-                                                    </li>
-                                                );
-                                            }
-                                            if (item.type === "URBIT_ORG_RESULT") {
-                                                const orgItem = Object.assign({}, item.content);
-                                                const prelude = "https://urbit.org" === ourSite
-                                                    ? ""
-                                                    : "urbit.org / "
-                                                orgItem[
-                                                    "slug"
-                                                ] = `https://urbit.org${item.content.slug}`;
-                                                return (
-                                                    <li
-                                                        className={`cursor-pointer flex text-left w-full ${selected ? "bg-green-400" : ""
-                                                            }`}
-                                                        {...getItemProps({
-                                                            key: item.content.link + "-" + index,
-                                                            index,
-                                                            item: orgItem,
-                                                            selected,
-                                                        })}
-                                                    >
-                                                        <div className="p-3">
-                                                            <p
-                                                                className={`font-medium text-base ${selected ? "text-white" : "text-wall-600"
-                                                                    }`}
-                                                            >
-                                                                <span className={cn({ "text-wall-400": ourSite !== "https://urbit.org" })}>
-                                                                    {item.content.parent !== "Content"
-                                                                        ? `${prelude}${item.content.parent} / `
-                                                                        : prelude + " "}
-                                                                </span>
-                                                                {item.content.title}
-                                                            </p>
-                                                            <p
-                                                                className={`text-base font-regular text-small ${selected ? "text-midWhite" : "text-wall-500"
-                                                                    }`}
-                                                            >
-                                                                {item.content.content}
-                                                                {item?.content?.foundOnPage && (
-                                                                    <span className="italic block">
-                                                                        Found in page content
-                                                                    </span>
-                                                                )}
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                );
-                                            }
-                                            if (item.type === "DEV_RESULT") {
-                                                const devItem = Object.assign({}, item.content);
-                                                devItem[
-                                                    "slug"
-                                                ] = `https://developers.urbit.org${item.content.slug}`;
-                                                const prelude = "https://developers.urbit.org" === ourSite
-                                                    ? ""
-                                                    : "developers.urbit.org / ";
-                                                return (
-                                                    <li
-                                                        className={`cursor-pointer flex text-left w-full ${selected ? "bg-green-400" : ""
-                                                            }`}
-                                                        {...getItemProps({
-                                                            key: item.content.link + "-" + index,
-                                                            index,
-                                                            item: devItem,
-                                                            selected,
-                                                        })}
-                                                    >
-                                                        <div className="p-3">
-                                                            <p
-                                                                className={`font-medium text-base ${selected ? "text-white" : "text-wall-600"
-                                                                    }`}
-                                                            >
-                                                                <span className={cn({ "text-wall-400": ourSite !== "https://developers.urbit.org" })}>
-                                                                    {item.content.parent !== "Content"
-                                                                        ? `${prelude}${item.content.parent} / `
-                                                                        : prelude + " "}
-                                                                </span>
-                                                                {item.content.title}
-                                                            </p>
-                                                            <p
-                                                                className={`text-base font-regular text-small ${selected ? "text-midWhite" : "text-wall-500"
-                                                                    }`}
-                                                            >
-                                                                {item.content.content}
-                                                                {item?.content?.foundOnPage && (
-                                                                    <span className="italic block">
-                                                                        Found in page content
-                                                                    </span>
-                                                                )}
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                );
-                                            }
-                                            if (item.type === "OPS_RESULT") {
-                                                const opsItem = Object.assign({}, item.content);
-                                                opsItem[
-                                                    "slug"
-                                                ] = `https://operators.urbit.org${item.content.slug}`;
-                                                const prelude = "https://operators.urbit.org" === ourSite
-                                                    ? ""
-                                                    : "operators.urbit.org / ";
-                                                return (
-                                                    <li
-                                                        className={`cursor-pointer flex text-left w-full ${selected ? "bg-green-400" : ""
-                                                            }`}
-                                                        {...getItemProps({
-                                                            key: item.content.link + "-" + index,
-                                                            index,
-                                                            item: opsItem,
-                                                            selected,
-                                                        })}
-                                                    >
-                                                        <div className="p-3">
-                                                            <p
-                                                                className={`font-medium text-base ${selected ? "text-white" : "text-wall-600"
-                                                                    }`}
-                                                            >
-                                                                <span className={cn({ "text-wall-400": ourSite !== "https://operators.urbit.org" })}>
-                                                                    {item.content.parent !== "Content"
-                                                                        ? `${prelude}${item.content.parent} / `
-                                                                        : prelude + " "}
-                                                                </span>
-                                                                {item.content.title}
-                                                            </p>
-                                                            <p
-                                                                className={`text-base font-regular text-small ${selected ? "text-midWhite" : "text-wall-500"
-                                                                    }`}
-                                                            >
-                                                                {item.content.content}
-                                                                {item?.content?.foundOnPage && (
-                                                                    <span className="italic block">
-                                                                        Found in page content
-                                                                    </span>
-                                                                )}
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                );
-                                            }
-                                            if (item.type === "ROADMAP_RESULT") {
-                                                const roadmapItem = Object.assign({}, item.content);
-                                                roadmapItem[
-                                                    "slug"
-                                                ] = `https://roadmap.urbit.org${item.content.slug}`;
-                                                const prelude = "https://roadmap.urbit.org" === ourSite
-                                                    ? ""
-                                                    : "roadmap.urbit.org / ";
-                                                return (
-                                                    <li
-                                                        className={`cursor-pointer flex text-left w-full ${selected ? "bg-green-400" : ""
-                                                            }`}
-                                                        {...getItemProps({
-                                                            key: item.content.link + "-" + index,
-                                                            index,
-                                                            item: roadmapItem,
-                                                            selected,
-                                                        })}
-                                                    >
-                                                        <div className="p-3">
-                                                            <p
-                                                                className={`font-medium text-base ${selected ? "text-white" : "text-wall-600"
-                                                                    }`}
-                                                            >
-                                                                <span className={cn({ "text-wall-400": ourSite !== "https://roadmap.urbit.org" })}>
-                                                                    {item.content.parent !== "Content"
-                                                                        ? `${prelude}${item.content.parent} / `
-                                                                        : prelude + " "}
-                                                                </span>
-                                                                {item.content.title}
-                                                            </p>
-                                                            <p
-                                                                className={`text-base font-regular text-small ${selected ? "text-midWhite" : "text-wall-500"
-                                                                    }`}
-                                                            >
-                                                                {item.content.content}
-                                                                {item?.content?.foundOnPage && (
-                                                                    <span className="italic block">
-                                                                        Found in page content
-                                                                    </span>
-                                                                )}
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                );
-                                            }
-                                            return null;
-                                        })
-                                        : null}
-                                </ul>
-                            </div>
                         </div>
-                    )}
-                </Downshift>
-            );
-        } else {
-            return null;
-        }
-    }
+                        <ul {...getMenuProps()} className="overflow-y-scroll">
+                            {isOpen
+                                ? results.map((item, index) => {
+                                    const selected = highlightedIndex === index;
+                                    if (item.type === "PATP") {
+                                        return (
+                                            <li
+                                                className={`cursor-pointer p-2 flex space-x-2 items-center text-left w-full ${selected ? "bg-green-400" : ""
+                                                    }`}
+                                                {...getItemProps({
+                                                    key: item.content.slug + "-" + index,
+                                                    index,
+                                                    item: item.content,
+                                                    selected: highlightedIndex === index,
+                                                })}
+                                            >
+                                                <div className="rounded-md overflow-hidden">
+                                                    <Sigil
+                                                        patp={item.content.patp}
+                                                        size={25}
+                                                        icon
+                                                    />
+                                                </div>
+                                                <p className="font-mono">{item.content.patp}</p>
+                                            </li>
+                                        );
+                                    }
+                                    if (item.type === "GLOSSARY") {
+                                        return (
+                                            <li
+                                                className={`cursor-pointer flex text-left w-full ${selected ? "bg-green-400" : ""
+                                                    }`}
+                                                {...getItemProps({
+                                                    key: item.content.slug + "-" + index,
+                                                    index,
+                                                    item: item.content,
+                                                    selected: highlightedIndex === index,
+                                                })}
+                                            >
+                                                <div className="font-semibold p-3">
+                                                    <p
+                                                        className={`text-base ${selected ? "text-white" : "text-wall-600"
+                                                            }`}
+                                                    >
+                                                        {item.content.symbol.length > 0 && (
+                                                            <code
+                                                                className={`mr-1 rounded px-1 py-0.5 ${selected
+                                                                    ? "bg-washedWhite"
+                                                                    : "bg-wall-100"
+                                                                    }`}
+                                                            >
+                                                                {item.content.symbol}
+                                                            </code>
+                                                        )}
+                                                        {item.content.name}
+                                                    </p>
+                                                    <p
+                                                        className={`font-normal text-base mt-1 ${selected ? "text-white" : "text-wall-600"
+                                                            }`}
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: item.content.desc,
+                                                        }}
+                                                    ></p>
+                                                </div>
+                                            </li>
+                                        );
+                                    }
+                                    if (item.type === "RESULT") {
+                                        const our = item.source === ourSite;
+                                        const prelude = our
+                                            ? ""
+                                            : `${item.source.substring(8)} / `
+
+                                        return <li
+                                            className={`cursor-pointer flex text-left w-full ${selected ? "bg-green-400" : ""
+                                                }`}
+                                            {...getItemProps({
+                                                key: item.content.link + "-" + index,
+                                                index,
+                                                item,
+                                                selected,
+                                            })}
+                                        >
+                                            <div className="p-3">
+                                                <p
+                                                    className={`font-medium text-base ${selected ? "text-white" : "text-wall-600"
+                                                        }`}
+                                                >
+                                                    <span className={cn({ "text-wall-400": !our })}>
+                                                        {item.content.parent !== "Content"
+                                                            ? `${prelude}${item.content.parent} / `
+                                                            : prelude + " "}
+                                                    </span>
+                                                    {item.content.title}
+                                                </p>
+                                                <p
+                                                    className={`text-base font-regular text-small ${selected ? "text-midWhite" : "text-wall-500"
+                                                        }`}
+                                                >
+                                                    {item.content.content}
+                                                    {item?.content?.foundOnPage && (
+                                                        <span className="italic block">
+                                                            Found in page content
+                                                        </span>
+                                                    )}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    }
+                                })
+                                : null
+                            }
+                        </ul>
+                    </div>
+                </div>
+            )}
+        </Downshift>
+        : null
 }
 
-function deSig(string) {
-    return string.startsWith("~") ? string.substring(1) : string;
-}
-
-export default withRouter(Search);
+export default Search;

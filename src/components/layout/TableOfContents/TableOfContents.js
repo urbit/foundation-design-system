@@ -11,7 +11,7 @@ export const TableOfContents = ({ staticPosition, noh3s, markdown = true }) => {
         (staticPosition ? "static" : "sticky") +
         " min-h-0 overflow-y-auto w-52 shrink-0 pb-24 hidden lg:block pl-4"
       }
-      style={{ top: "8rem", height: "calc(100vh - 16rem)" }}
+      style={{ top: "8rem", height: "calc(100vh - 16rem), font-variant: "none" }}
     >
       <div className="relative after:fixed after:bg-gradient-to-t after:from-white after:via-white after:bottom-0 after:w-52 after:h-60 after:pointer-events-none leading-none">
         <Headings headings={nestedHeadings} activeId={activeId} />

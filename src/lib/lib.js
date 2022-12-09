@@ -100,6 +100,8 @@ export function getAllPosts(fields = [], key, sort = "") {
           : 1;
       } else if (sort === "weight") {
         return post1.weight > post2.weight ? -1 : 1;
+      } else if (sort === "alphanumeric") {
+        return post1.title > post2.title ? -1 : 1;
       }
     });
   return posts;

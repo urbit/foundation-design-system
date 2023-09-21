@@ -1,6 +1,7 @@
 import classnames from "classnames";
 import React from 'react';
 import { useSwipeable } from "react-swipeable";
+import { DocSearch } from '@docsearch/react';
 
 export default function MenuTray({ isOpen, setTray, search, children }) {
     // Locks document scrolling when menu is open
@@ -55,16 +56,27 @@ export default function MenuTray({ isOpen, setTray, search, children }) {
                     </div>
                 </div>
 
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        search.toggleSearch(e);
-                    }}
-                    className={`z-20 fixed px-4 items-center justify-center type-ui rounded-xl h-16 bg-white text-wall-500 left-4 right-4 bottom-4 mobile-search-button-width ${isOpen ? "flex" : "hidden"
-                        }`}
-                >
-                    Search
-                </button>
+
+              <div
+                id="search-tray"
+                className={`fixed items-center justify-center type-ui rounded-xl bg-white text-wall-500 left-4 right-4 bottom-4 mobile-search-button-width`}
+              >
+                <DocSearch
+                  appId="3EVOAL3MOI"
+                  apiKey="00ccef825c17a672ef1c1a9bea3a9903"
+                  indexName="developers-urbit"
+                />
+              </div>
+                {/* <button */}
+                {/*     onClick={(e) => { */}
+                {/*         e.stopPropagation(); */}
+                {/*         search.toggleSearch(e); */}
+                {/*     }} */}
+                {/*     className={`z-20 fixed px-4 items-center justify-center type-ui rounded-xl h-16 bg-white text-wall-500 left-4 right-4 bottom-4 mobile-search-button-width ${isOpen ? "flex" : "hidden" */}
+                {/*         }`} */}
+                {/* > */}
+                {/*     Search */}
+                {/* </button> */}
             </nav>
             <button
                 onClick={() => setTray(!isOpen)}

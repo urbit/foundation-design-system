@@ -1,6 +1,8 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
+import css from "rollup-plugin-import-css";
+
 
 const packageJson = require("./package.json");
 
@@ -28,6 +30,7 @@ export default [
         presets: ["@babel/preset-react"],
       }),
       commonjs(),
+      css()
     ],
   },
 ];

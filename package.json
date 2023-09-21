@@ -1,6 +1,6 @@
 {
   "name": "@urbit/foundation-design-system",
-  "version": "0.7.5",
+  "version": "0.7.7",
   "description": "A system of design variables, Markdoc and React components intended for Urbit Foundation projects.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "rollup": "rollup -c",
-    "build": "npm i && npm run rollup && rm -rf node_modules"
+    "build": "npm i && npm run rollup"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "tailwindcss-theme-swapper": "^0.6.2"
   },
   "dependencies": {
+    "@docsearch/react": "^3.5.2",
     "@iarna/toml": "^2.2.5",
     "@tlon/sigil-js": "^1.4.5",
     "core-js": "^3.23.1",
@@ -56,6 +57,7 @@
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "rollup": "^2.75.7",
+    "rollup-plugin-import-css": "^3.3.4",
     "rollup-plugin-peer-deps-external": "^2.2.4"
   }
 }

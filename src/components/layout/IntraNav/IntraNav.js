@@ -2,6 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 
+import { DocSearch } from '@docsearch/react';
+
+
 export default function IntraNav({ search, ourSite = "" }) {
   const [shortcut, setShortcut] = useState("");
   const detectOS = () => {
@@ -16,7 +19,6 @@ export default function IntraNav({ search, ourSite = "" }) {
   };
 
   useEffect(() => {
-    setShortcut(detectOS());
   }, []);
   const sites = [
     { title: "Urbit.org", href: "https://urbit.org" },
@@ -45,16 +47,11 @@ export default function IntraNav({ search, ourSite = "" }) {
               Network Explorer
             </a>
           </div>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              search.toggleSearch(e);
-            }}
-            className="bg-white text-wall-500 flex px-3 py-2 rounded-lg text-xs font-medium"
-          >
-            <div>Search</div>
-            <div className="ml-2 text-wall-400">{shortcut}</div>
-          </button>
+        <DocSearch
+          appId="3EVOAL3MOI"
+          apiKey="00ccef825c17a672ef1c1a9bea3a9903"
+          indexName="developers-urbit"
+        />
         </div>
       </div>
     </div>
